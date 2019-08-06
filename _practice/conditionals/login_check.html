@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>login check</title>
+	<script>
+
+		let user = prompt('Who\'s there?');
+
+		if (user == 'admin') {
+
+			let pass = prompt('Enter password:');
+
+			if (!pass) {
+				alert('Oops, something went wrong...');
+			} else if (pass == 'admin') {
+				alert('Welcome!');
+			} else {
+				alert('Wrong password!');
+			};
+
+		} else if (!user) {
+			alert('Holy guacomole!');
+		} else {
+			alert('I don\'t know you!');
+		};
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

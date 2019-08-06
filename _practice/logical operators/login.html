@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login page</title>
+	<script>
+		let passReq = false;
+		let username = prompt('Who\'s there?');
+
+		switch (username) {
+			case (false): alert('Canceled'); break;
+			case ('admin'): passReq; break;
+			default: alert('I don\'t know you.');
+		}
+
+		passReq && prompt('Password:');
+
+		switch (passReq) {
+			case (false): alert('Canceled'); break;
+			case ('TheMaster'): alert('Welcome!'); break;
+			default: alert('Wrong password.');
+		}
+
+		if (passReq) {
+
+		}
+
+		// if (!username) {
+		// 	alert('Canceled.');
+		// };
+
+		// if (username != 'admin') {
+		// 	alert('I don\'t know you.');
+		// } else {
+		// 	password = prompt('Password:');
+		// };
+
+		// if (!password) {
+		// 	alert('Canceled.');
+		// } else if (!password == 'TheMaster') {
+		// 	alert('Wrong password.');
+		// } else {
+		// 	alert('Welcome!');
+		// };
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
