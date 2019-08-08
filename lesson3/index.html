@@ -3,7 +3,6 @@
 <head>
     <title>Calculator</title>
     <script>
-
         'use strict';
 
         let action;
@@ -23,76 +22,64 @@
 
         for (let i = 0; i < +operandsQuantity; i++) {
             do { 
-                operands[i] = prompt('Type ' + [i + 1] + ' operands');
+                operands[i] = prompt('Type ' + [i + 1] + ' operand.');
             } while (isNaN(operands[i]) || !operands[i]);
         };
 
-        // console.log(operands);
-
         //addition
 
-        let addResult = 0;
+        let addition = 0;
 
         if (action == 'add') {
             for (let i = 0; i < operands.length; i++) {
-                addResult += +operands[i];
-                // console.log([i + 1] + ' of operands = ' + operands[i]);
+                addition += +operands[i];
             };
-            // console.log('addition result = ' + addResult);
-            alert('Addition result is ' + addResult);
+            alert('Addition result is ' + addition);
         };
 
         //subsctraction
 
-        let subResult = 0;
+        let subsctraction = 0;
 
         if (action == 'sub') {
-            subResult = operands[0] - operands[1];
+            subsctraction = operands[0] - operands[1];
             if (operands.length > 2) {
                 for (let i = 2; i < operands.length; i++) {
-                    subResult -= operands[i];
+                    subsctraction -= operands[i];
                 };
             };
-            // console.log('substraction result = ' + subResult);
-            alert('Subsctraction result is ' + subResult);
+            alert('Subsctraction result is ' + subsctraction);
         };
 
         //multiplication
 
-        let multResult = 1;
+        let multiplication = 1;
 
         if (action == 'mult') {
             for (let i = 0; i < operands.length; i++) {
-                multResult *= operands[i];
-                // console.log([i + 1] + ' of operands = ' + operands[i]);
+                multiplication *= operands[i];
             };
-            // console.log('Multiplication result = ' + multResult);
-            alert('Multiplication result is ' + multResult);
+            alert('Multiplication result is ' + multiplication);
         };        
 
         //division
 
-        let divResult; 
+        let division; 
         
         if (action == 'div') {
-            divResult = operands[0] / operands[1];
+            division = operands[0] / operands[1];
             if (operands.length > 2) {
                 for (let i = 2; i < operands.length; i++) {
-                    divResult /= operands[i];
+                    division /= operands[i];
                 };
             };
-            
-            // console.log('Division result = ' + divResult); 
-            
             if (operands[1] == '0' || operands[2] == '0' ||
                 operands[3] == '0' || operands[4] == '0') {
-                    alert('Division by zero is unacceptable here.')
+                    alert('Division by zero is unacceptable here.');
             } else {
-                alert('Division result is ' + divResult);
+                alert('Division result is ' + division);
             };
         };
-        
-
     </script>
 </head>
 <body>
