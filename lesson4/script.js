@@ -11,9 +11,9 @@ function multiplication(arg1, arg2) { let result = arg1 * arg2; return result; }
 function division(arg1, arg2) { let result = arg1 / arg2; return result; };
 
 do { 
-    ACTION = prompt('Choose one: add, sub, mult or div').toLowerCase().trim();
-} while (ACTION != 'add' && ACTION != 'sub' &&
-         ACTION != 'mult' && ACTION != 'div');
+    let x = prompt('Choose one: add, sub, mult or div');
+    ACTION = x && x.toLowerCase().trim();
+} while (ACTION != 'add' && ACTION != 'sub' && ACTION != 'mult' && ACTION != 'div');
 
 do { 
     ARGUMENT_ONE = +prompt('Submit first argument:', '6');
