@@ -1,42 +1,35 @@
 'use strict';
 
-let CALC_ACTION;
+let ACTION;
 let ARGUMENT_ONE;
 let ARGUMENT_TWO;
-let CALC_RESULT;
+let RESULT;
 
-+function chooseAction() {
-    do {
-        CALC_ACTION = prompt('Choose one: add, sub, mult or div');
-    } while (CALC_ACTION != 'add' &&
-             CALC_ACTION != 'sub' &&
-             CALC_ACTION != 'mult' &&
-             CALC_ACTION != 'div');
-}();
+function addition(arg1, arg2) { let result = arg1 + arg2; return result; };
+function substraction(arg1, arg2) { let result = arg1 - arg2; return result; };
+function multiplication(arg1, arg2) { let result = arg1 * arg2; return result; };
+function division(arg1, arg2) { let result = arg1 / arg2; return result; };
 
-+function argumentOne() {
-    do {
-        ARGUMENT_ONE = +prompt('Submit first argument:', '2');
-    } while (!ARGUMENT_ONE || isNaN(ARGUMENT_ONE));
-}();
+do { 
+    ACTION = prompt('Choose one: add, sub, mult or div').toLowerCase().trim();
+} while (ACTION != 'add' && ACTION != 'sub' &&
+         ACTION != 'mult' && ACTION != 'div');
 
-+function argumentTwo() {
-    do {
-        ARGUMENT_TWO = +prompt('Submit second argument:', '3');
-    } while (!ARGUMENT_TWO || isNaN(ARGUMENT_TWO));
-}();
+do { 
+    ARGUMENT_ONE = +prompt('Submit first argument:', '6');
+} while (!ARGUMENT_ONE || isNaN(ARGUMENT_ONE));
 
-+function calculation() {
-    switch (CALC_ACTION) {
-        case 'add': CALC_RESULT = ARGUMENT_ONE + ARGUMENT_TWO; break;
-        case 'sub': CALC_RESULT = ARGUMENT_ONE - ARGUMENT_TWO; break;
-        case 'mult': CALC_RESULT = ARGUMENT_ONE * ARGUMENT_TWO; break;
-        case 'div': CALC_RESULT = ARGUMENT_ONE / ARGUMENT_TWO; break;
-    };    
-    console.log(CALC_RESULT);
-}();
+do { 
+    ARGUMENT_TWO = +prompt('Submit second argument:', '3');
+} while (!ARGUMENT_TWO || isNaN(ARGUMENT_TWO));
 
+switch (ACTION) {
+    case 'add': RESULT = addition(ARGUMENT_ONE, ARGUMENT_TWO); break;
+    case 'sub': RESULT = substraction(ARGUMENT_ONE, ARGUMENT_TWO); break;
+    case 'mult': RESULT = multiplication(ARGUMENT_ONE, ARGUMENT_TWO); break;
+    case 'div': RESULT = division(ARGUMENT_ONE, ARGUMENT_TWO); break;
+};
 
-console.log(CALC_ACTION, ARGUMENT_ONE, ARGUMENT_TWO, 'result: ', CALC_RESULT);             
+alert('Result: ' + RESULT);
 
 
