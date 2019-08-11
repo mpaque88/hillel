@@ -1,35 +1,50 @@
 'use strict';
 
-let ACTION;
-let ARGUMENT_ONE;
-let ARGUMENT_TWO;
-let RESULT;
+let action;
+let argumentOne = null;
+let argumentTwo = null;
+let result;
 
-function addition(arg1, arg2) { let result = arg1 + arg2; return result; };
-function substraction(arg1, arg2) { let result = arg1 - arg2; return result; };
-function multiplication(arg1, arg2) { let result = arg1 * arg2; return result; };
-function division(arg1, arg2) { let result = arg1 / arg2; return result; };
+function addition(arg1, arg2) { 
+	return +arg1 + +arg2; 
+};
+function substraction(arg1, arg2) { 
+	return arg1 - arg2; 
+};
+function multiplication(arg1, arg2) { 
+	return arg1 * arg2; 
+};
+function division(arg1, arg2) { 
+	return arg1 / arg2; 
+};
 
 do { 
     let x = prompt('Choose one: add, sub, mult or div');
-    ACTION = x && x.toLowerCase().trim();
-} while (ACTION != 'add' && ACTION != 'sub' && ACTION != 'mult' && ACTION != 'div');
+    action = x && x.toLowerCase().trim();
+} while (action != 'add' && action != 'sub' && 
+		 action != 'mult' && action != 'div');
 
 do { 
-    ARGUMENT_ONE = +prompt('Submit first argument:', '6');
-} while (!ARGUMENT_ONE || isNaN(ARGUMENT_ONE));
+    argumentOne = prompt('Submit first argument:', '');
+} while (isNaN(argumentOne) || argumentOne == null);
 
 do { 
-    ARGUMENT_TWO = +prompt('Submit second argument:', '3');
-} while (!ARGUMENT_TWO || isNaN(ARGUMENT_TWO));
+    argumentTwo = prompt('Submit second argument:', '');
+} while (isNaN(argumentTwo) || argumentTwo == null);
 
-switch (ACTION) {
-    case 'add': RESULT = addition(ARGUMENT_ONE, ARGUMENT_TWO); break;
-    case 'sub': RESULT = substraction(ARGUMENT_ONE, ARGUMENT_TWO); break;
-    case 'mult': RESULT = multiplication(ARGUMENT_ONE, ARGUMENT_TWO); break;
-    case 'div': RESULT = division(ARGUMENT_ONE, ARGUMENT_TWO); break;
+switch (action) {
+    case 'add': result = addition(argumentOne, argumentTwo); 
+    break;
+    case 'sub': result = substraction(argumentOne, argumentTwo); 
+    break;
+    case 'mult': result = multiplication(argumentOne, argumentTwo); 
+    break;
+    case 'div': result = division(argumentOne, argumentTwo); 
+    break;
 };
 
-alert('Result: ' + RESULT);
-
-
+if (action == 'div' && argumentTwo == 0) {
+	alert('Division by zero is unacceptable here.');
+} else {
+	alert('Result: ' + result);
+};
