@@ -9,7 +9,7 @@ function replaceAll(str, inChar, outChar) {
 		console.warn('Wrong input');
 	} else {
 		let mod = str.replace(inChar, outChar);
-		return (str.indexOf(inChar) == -1) ? mod : replaceAll(mod, inChar, outChar);
+		return (mod.indexOf(inChar) == -1) ? mod : replaceAll(mod, inChar, outChar);
 	}	
 }
 
