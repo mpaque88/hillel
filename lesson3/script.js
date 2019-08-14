@@ -4,19 +4,19 @@ let action;
 
 do {
     action = prompt('Choose action: add, sub, mult or div', '');
-} while (action != 'add' && action != 'sub' && 
+} while (action != 'add' && action != 'sub' &&
          action != 'mult' && action != 'div' || !action);
 
 let operandsQuantity;
 
 do {
-    operandsQuantity = prompt('How many operands?', '');
+    operandsQuantity = Number(prompt('How many operands?', ''));
 } while (isNaN(operandsQuantity) || operandsQuantity < 2 || operandsQuantity > 5);
 
 let operands = [];
 
-for (let i = 0; i < +operandsQuantity; i++) {
-    do { 
+for (let i = 0; i < operandsQuantity; i++) {
+    do {
         operands[i] = prompt('Type ' + [i + 1] + ' operand.');
     } while (isNaN(operands[i]) || !operands[i]);
 };
@@ -36,15 +36,15 @@ if (action == 'add') {
 
 let subsctraction = 0;
 
-if (action == 'sub') {
-    subsctraction = operands[0] - operands[1];
-    if (operands.length > 2) {
+switch (action == 'sub') {
+    case operands.length > 2:
         for (let i = 2; i < operands.length; i++) {
             subsctraction -= operands[i];
-        };
-    };
-    alert('Subsctraction result is ' + subsctraction);
-};
+        }; break;
+    default: subsctraction = operands[0] - operands[1];
+}
+
+if (action == 'sub') { alert('Subsctraction result is ' + subsctraction); };
 
 //multiplication
 
@@ -55,11 +55,11 @@ if (action == 'mult') {
         multiplication *= operands[i];
     };
     alert('Multiplication result is ' + multiplication);
-};        
+};
 
 //division
 
-let division; 
+let division;
 
 if (action == 'div') {
     division = operands[0] / operands[1];
@@ -70,7 +70,7 @@ if (action == 'div') {
     };
     if (operands[1] == '0' || operands[2] == '0' ||
         operands[3] == '0' || operands[4] == '0') {
-            alert('Division by zero is unacceptable here.');
+        alert('Division by zero is unacceptable here.');
     } else {
         alert('Division result is ' + division);
     };
