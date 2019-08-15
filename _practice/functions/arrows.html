@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Doc</title>
+	<script>
+		let ask = (q, y, n) => {
+			(confirm(q)) ? y() : n();
+		};
+
+		ask(
+			"Do you agree?",
+			() => alert('You agreed.'),
+			() => alert('The execution is canceled')
+		);
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
