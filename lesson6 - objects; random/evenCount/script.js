@@ -16,5 +16,5 @@ function evenCount(num) {
         if (num[i] % 2 == 0) evens += 1
     }
 
-    return alert(evens, 'even numbers');
+    return alert(evens + ' even number(-s).');
 }
