@@ -6,7 +6,8 @@ do {
     number = prompt('Submit a number', '1234');    
 } while (!number || isNaN(number))
 
-evenCount(number);
+let evenNums = evenCount(number);
+alert(evenNums + ' even number(-s).');
 
 function evenCount(num) {
     let evens = 0;
@@ -16,5 +17,5 @@ function evenCount(num) {
         if (num[i] % 2 == 0) evens += 1
     }
 
-    return alert(evens + ' even number(-s).');
+    return evens;
 }
