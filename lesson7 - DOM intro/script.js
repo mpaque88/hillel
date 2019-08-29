@@ -18,6 +18,8 @@ let array = stringToSortedArray(userInput);
 
 function stringToSortedArray(string) {
     let arr = string.split(',');
+    string[string.length - 1] == ',' && arr.pop();
+
     for (let i in arr) arr[i] = arr[i].trim();
     arr.sort();
     return arr;
