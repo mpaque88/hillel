@@ -14,38 +14,37 @@ do {
     userInput = prompt('Submit some numbers, separate them with a comma', '1,5,    3,4,a');
 } while (!userInput);
 
-let array = stringToSortedArray(userInput);
+userInput = stringToSortedArray(userInput);
 
 function stringToSortedArray(string) {
     let arr = string.split(',');
+    
     string[string.length - 1] == ',' && arr.pop();
 
-    for (let i in arr) arr[i] = arr[i].trim();
+    arr = arr.map((x) => +x.trim());
     arr.sort();
+
     return arr;
 }
 
-minMax(array);
+if (userInput.find(x => isNaN(x)) != undefined) {
+    let maxDiv = document.getElementById('max');
+    wrongInput(maxDiv);
+} else {
+    minMax(userInput);
+}
+
+function wrongInput(elem) {
+    elem.style.display = 'inline-block';
+    elem.style.padding = '0 2em';
+    elem.style.backgroundColor = 'red';
+    elem.style.color = 'white';
+    elem.innerHTML = '<h2>Wrong input</h2>';
+}
 
 function minMax(arr) {
-    for (let i in arr) arr[i] = +arr[i];
-
-    let checkNaN = function () {
-        for (let i in arr) if (isNaN(arr[i])) return true;
-        return false;
-    }(arr);
-
-    if (!checkNaN) {
-        let min = array[0];
-        document.getElementById('min').innerHTML = `The minimum value is ${min}.`;
-        let max = array[array.length - 1];
-        document.getElementById('max').innerHTML = `The maximum value is ${max}.`;
-    } else {
-        let maxDiv = document.getElementById('max');
-        maxDiv.style.display = 'inline-block';
-        maxDiv.style.padding = '0 2em';
-        maxDiv.style.backgroundColor = 'red';
-        maxDiv.style.color = 'white';
-        maxDiv.innerHTML = '<h2>Wrong input</h2>';
-    }
+    let min = arr[0];
+    document.getElementById('min').innerHTML = `The minimum value is ${min}.`;
+    let max = arr[arr.length - 1];
+    document.getElementById('max').innerHTML = `The maximum value is ${max}.`;
 }
