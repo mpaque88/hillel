@@ -17,14 +17,16 @@ function clearList() {
 function createList() {
     let num = +count.value || 0;
     
-    if (num) {
-        for (let i = 1; i < num + 1; i++) {
-            let node = document.createElement('li');
-            let textNode = document.createTextNode(i);
-            
-            node.appendChild(textNode);
-            node.setAttribute(`data-li-index`, i);
-            list.appendChild(node);
-        }
+    for (let i = 1; i < num + 1; i++) {
+        let newLi = createLi(i);
+        list.appendChild(newLi);
     }
+}
+
+function createLi(index) {
+    let node = document.createElement('li');
+    let textNode = document.createTextNode(index);
+    node.appendChild(textNode);
+    node.setAttribute(`data-li-index`, index);
+    return node;
 }
