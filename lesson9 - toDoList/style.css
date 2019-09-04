@@ -67,30 +67,41 @@ font-family: 'Comfortaa', cursive;
     display: inline-block;
     background: transparent;
     cursor: pointer;
-
+    
     line-height: 1em;
-
+    
     padding: 0;
     margin-right: 10px;
-
+    
     color: #dfc047;
 }
 
-/* js */
-
-.taskDone {
-    background-color: #d6e4aa;
-    color: #83b582;
-}
+/* li related */
 
 .task {
     list-style-type: none;
     border-bottom: 1px solid #f0dd92;
-
+    
+    cursor: pointer;
     user-select: none;
+    
     padding-top: 5px;
-
     max-width: 100%
+}
+
+.task:hover{
+    text-decoration: line-through;
+    color: grey;
+}
+
+.taskDone {
+    background-color: #d6e4aa;
+    color: #83b582;
+    text-decoration: line-through
+}
+
+.taskDone:hover {
+    color: #83b582;
 }
 
 .hidden {
