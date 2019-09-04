@@ -10,7 +10,9 @@ const btnTemplate = document.getElementById('delTaskTemplate').innerHTML;
 const addBtn = document.getElementById('addBtn');
 addBtn.addEventListener('click', newTask);
 
-function newTask() {
+function newTask(e) {
+    e.preventDefault();
+    
     addToList();
     clearInput();
 }
