@@ -81,6 +81,7 @@ font-family: 'Comfortaa', cursive;
 .task {
     list-style-type: none;
     border-bottom: 1px solid #f0dd92;
+    border-radius: 2px;
     
     cursor: pointer;
     user-select: none;
@@ -97,11 +98,15 @@ font-family: 'Comfortaa', cursive;
 .taskDone {
     background-color: #d6e4aa;
     color: #83b582;
+    
+    border-bottom: 1px solid #ffffc5;
     text-decoration: line-through
 }
 
 .taskDone:hover {
     color: #83b582;
+    font-style: italic;
+    text-decoration: none;
 }
 
 .hidden {
