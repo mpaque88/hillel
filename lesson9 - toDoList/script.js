@@ -1,47 +1,52 @@
 'use strict'
 
 const toDoList = document.getElementById('list');
-toDoList.addEventListener('click', rmTask);
-toDoList.addEventListener('click', markTask);
+toDoList.addEventListener('click', liOnClick);
 
 const newTaskInput = document.getElementById('newTaskInput');
 const btnTemplate = document.getElementById('delTaskTemplate').innerHTML;
 
 const addBtn = document.getElementById('addBtn');
-addBtn.addEventListener('click', newTask);
+addBtn.addEventListener('click', onAddBtnClick);
 
-function newTask(e) {
+function onAddBtnClick(e) {
     e.preventDefault();
     
-    addToList();
+    const li = createTask();
+    addTaskToList(li);
     clearInput();
 }
 
-function addToList() {
-    const li = createLi();
-    li.classList.add('task')   
-    toDoList.appendChild(li);
+//creating task
+
+function createTask() {
+    const newTask = document.createElement('li');
+    newTask.innerHTML = btnTemplate + newTaskInput.value; 
+    return newTask;
 }
 
-function createLi() {
-    let newLi = document.createElement('li');
-    newLi.innerHTML = btnTemplate + newTaskInput.value; 
-    return newLi;
-}
-
-function rmTask(e) {
-    if (e.target.tagName == 'BUTTON') {
-        e.target.parentElement.remove();
-    }
-}
-
-function markTask(e) {
-    if (e.target.tagName == 'LI') {
-        e.target.classList.toggle('taskDone');
-        e.target.firstChild.classList.toggle('hidden');
-    }
+function addTaskToList(task) {
+    task.classList.add('task')   
+    toDoList.appendChild(task);
 }
 
 function clearInput() {
     newTaskInput.value = '';
 }
+
+//mark and rm
+
+function liOnClick(e) {
+    if (e.target.classList.contains('rmBtn')) rmTask(e);
+    if (e.target.classList.contains('task')) markTask(e);
+}
+
+function rmTask(e) {
+    e.target.parentElement.remove();
+}
+
+function markTask(e) {
+    e.target.classList.toggle('taskDone');
+    e.target.firstChild.classList.toggle('hidden');
+}
+
