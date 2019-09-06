@@ -7,9 +7,9 @@ const newTaskInput = document.getElementById('newTaskInput');
 const btnTemplate = document.getElementById('delTaskTemplate').innerHTML;
 
 const addBtn = document.getElementById('addBtn');
-addBtn.addEventListener('click', onAddBtnClick);
+addBtn.addEventListener('click', addBtnOnClick);
 
-function onAddBtnClick(e) {
+function addBtnOnClick(e) {
     e.preventDefault();
     
     const li = createTask();
@@ -26,7 +26,7 @@ function createTask() {
 }
 
 function addTaskToList(task) {
-    task.classList.add('task')   
+    task.classList.add('task');
     toDoList.appendChild(task);
 }
 
@@ -37,16 +37,16 @@ function clearInput() {
 //mark and rm
 
 function listOnClick(e) {
-    if (e.target.classList.contains('rmBtn')) rmTask(e);
+    if (e.target.classList.contains('rmBtn')) rmTask(e.target.parentElement);
     if (e.target.classList.contains('task')) markTask(e);
 }
 
-function rmTask(e) {
-    e.target.parentElement.remove();
+function rmTask(el) {
+    el.remove();
 }
 
 function markTask(e) {
     e.target.classList.toggle('taskDone');
-    e.target.firstChild.classList.toggle('hidden');
+    e.target.classList.contains('rmBtn').toggle('hidden');
 }
 
