@@ -1,7 +1,7 @@
 'use strict'
 
 const toDoList = document.getElementById('list');
-toDoList.addEventListener('click', liOnClick);
+toDoList.addEventListener('click', listOnClick);
 
 const newTaskInput = document.getElementById('newTaskInput');
 const btnTemplate = document.getElementById('delTaskTemplate').innerHTML;
@@ -36,7 +36,7 @@ function clearInput() {
 
 //mark and rm
 
-function liOnClick(e) {
+function listOnClick(e) {
     if (e.target.classList.contains('rmBtn')) rmTask(e);
     if (e.target.classList.contains('task')) markTask(e);
 }
