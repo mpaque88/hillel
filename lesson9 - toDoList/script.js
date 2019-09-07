@@ -38,15 +38,14 @@ function clearInput() {
 
 function listOnClick(e) {
     if (e.target.classList.contains('rmBtn')) rmTask(e.target.parentElement);
-    if (e.target.classList.contains('task')) markTask(e);
+    if (e.target.classList.contains('task')) markTask(e.target);
 }
 
 function rmTask(el) {
     el.remove();
 }
 
-function markTask(e) {
-    e.target.classList.toggle('taskDone');
-    e.target.classList.contains('rmBtn').toggle('hidden');
+function markTask(el) {
+    el.classList.toggle('taskDone');
+    if (el.firstChild.classList.contains('rmBtn')) el.firstChild.classList.toggle('hidden');
 }
-
