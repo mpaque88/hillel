@@ -14,10 +14,10 @@ Student.prototype.averageMark = function() {
     return averageOfArr(this.marks) 
 }
 
-function averageGroupMark(students) {
-    let arr = [];
-    for (let x in students) arr[x] = averageOfArr(students[x].marks); 
-    return averageOfArr(arr)
+function averageGroupMark(arr) {
+    let group = [];
+    for (let x in arr) group[x] = averageOfArr(arr[x].marks); 
+    return averageOfArr(group)
 }
 
 function averageOfArr(arr) {
