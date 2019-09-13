@@ -17,7 +17,7 @@ function averageOf(array) {
 }
 
 function sumOf(array) {
-    return array.reduce((acc, value) => acc + value)
+    return array.reduce((acc, value) => acc + value, 0)
 }
 
 function averageOfGroup(...students) {
