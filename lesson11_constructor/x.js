@@ -9,15 +9,15 @@ function Student(name, marks) {
 }
 
 Student.prototype.averageMark = function () {
-    return averageOf(this.marks)
+    return averageOf(this.marks);
 }
 
 function averageOf(array) {
-    return sumOf(array) / array.length
+    return sumOf(array) / array.length;
 }
 
 function sumOf(array) {
-    return array.reduce((acc, value) => acc + value, 0)
+    return array.reduce((acc, value) => acc + value, 0);
 }
 
 function averageOfGroup(...students) {
