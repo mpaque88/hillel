@@ -1,28 +1,29 @@
 'use strict'
 
-const students = [];
 const jack = new Student('Jack', [5, 4, 3]);
 const jon = new Student('Jon', [3, 2, 4]);
 
 function Student(name, marks) {
     this.name = name;
     this.marks = marks;
-    students.push(this);
 }
 
-Student.prototype.averageMark = function() { 
-    return averageOfArr(this.marks) 
+Student.prototype.averageMark = function () {
+    return averageOf(this.marks)
 }
 
-function averageGroupMark(arr) {
+function averageOf(array) {
+    return sumOf(array) / array.length
+}
+
+function sumOf(array) {
+    return (array.length == 0) ? 0 : array[0] + sumOf(array.slice(1))
+}
+
+function averageOfGroup(...students) {
     let group = [];
-    for (let x in arr) group[x] = averageOfArr(arr[x].marks); 
-    return averageOfArr(group)
-}
 
-function averageOfArr(arr) {
-    let sum = 0;
-    for (let x of arr) sum += x;
-    return sum / arr.length
-}
+    students.forEach( (student) => group.push(student.averageMark()) );
 
+    return averageOf(group);
+}
