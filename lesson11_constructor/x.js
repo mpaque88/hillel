@@ -17,13 +17,10 @@ function averageOf(array) {
 }
 
 function sumOf(array) {
-    return (array.length == 0) ? 0 : array[0] + sumOf(array.slice(1))
+    return array.reduce((acc, value) => acc + value)
 }
 
 function averageOfGroup(...students) {
-    let group = [];
-
-    students.forEach( (student) => group.push(student.averageMark()) );
-
-    return averageOf(group);
+    let group = students.map((x) => x.averageMark()); 
+    return averageOf(group)
 }
