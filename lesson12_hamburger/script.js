@@ -3,7 +3,7 @@
 function Hamburger(size, stuffing) {
     this.size = size;
     this.stuffing = stuffing;
-
+    this.topping = [];
 }
 
 Hamburger.SIZE_SMALL = 'small';
@@ -29,8 +29,6 @@ Hamburger.INGREDIENTS_PRICE = {
 }
 
 Hamburger.prototype.addTopping = function (newTopping) {
-    if (!this.topping) this.topping = new Array();
-
     return this.topping.push(newTopping);
 }
 
@@ -50,25 +48,20 @@ Hamburger.prototype.calculate = function (reference) {
     return this.sumOf(array);
 }
 
+Hamburger.prototype.getIngredients = function () {
+    let ingredients = [];
+
+    ingredients.push(this.size, this.stuffing, this.topping);
+
+    return ingredients.flat();
+}
+
 Hamburger.prototype.replaceArrayWith = function (array, source) {
     return array.map(x => x.replace(x, source[x]));
 }
 
 Hamburger.prototype.sumOf = function (array) {
     return array.reduce((acc, value) => acc + Number(value), 0);
-}
-
-Hamburger.prototype.getIngredients = function () {
-    let ingredients = [];
-
-    for (let key in this) {
-        if (this.hasOwnProperty(key)) {
-            let x = this[key];
-            ingredients.push(x);
-        }
-    }
-
-    return ingredients.flat();
 }
 
 const myBurger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE);
