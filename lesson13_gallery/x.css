@@ -1,0 +1,46 @@
+/* gallery  */
+
+.gallery {
+    text-align: center;
+    margin-top: 25px;
+    min-width: 400px;
+}
+
+.gallery img {
+    width: 100%;
+}
+
+.gallery ul {
+    list-style-type: none;
+}
+
+
+
+/* images container */
+
+#images-container {
+    display: inline-block;
+
+    object-fit: cover;
+    width: 400px;
+    height: 250px;
+    overflow: hidden;
+
+    background-color: transparent;
+    border-radius: 4px;
+    border: 1px solid #bbb;
+}
+
+/* arrows */
+
+.arrow {
+    width: 200px;
+}
+
+/* added */
+
+.hidden {
+    display: none;
+}
+
+
