@@ -1,0 +1,11 @@
+.myGallery ul {
+    list-style-type: none;
+}
+
+.myGallery img {
+    width: 250px;
+}
+
+.hidden {
+    display: none;
+}
