@@ -1,42 +1,47 @@
 class Gallery {
     constructor(images) {
         this.images = images;
-        this.interval = setInterval(this.next, 5000);
     }
 
     createGallery() {
-        let newDiv = document.createElement('div');
-
-        newDiv.appendChild(this.images);
-
-        this.adjustClasses(newDiv, this.images);
-
-        this.createButtons(newDiv);
-
-        document.body.appendChild(newDiv);
+        const containerDiv = document.createElement('div');
+        containerDiv.classList.add('photo-gallery-container');
+        
+        const galleryDiv = document.createElement('div');
+        galleryDiv.classList.add('photo-gallery');
+        
+        galleryDiv.appendChild(this.images);
+        this.adjustClasses(this.images);
+        this.createButtons(galleryDiv);
+        
+        containerDiv.appendChild(galleryDiv);
+        document.body.append(containerDiv); 
+        
+        setInterval(this.next, 5000);
     }
 
-    adjustClasses(container, list) {
-        container.classList.add('myGallery');
+    adjustClasses(imagesList) {
 
-        for (let key in list.children) {
+        for (let key in imagesList.children) {
 
-            if (list.children[key].tagName != 'LI') break;
+            if (imagesList.children[key].tagName != 'LI') break;
 
-            if (list.children[key] == list.firstElementChild) {
-                list.children[key].classList.add('active');
+            if (imagesList.children[key] == imagesList.firstElementChild) {
+                imagesList.children[key].classList.add('active');
             } else {
-                list.children[key].classList.add('hidden');
+                imagesList.children[key].classList.add('hidden');
             }
         }
     }
 
     createButtons(container) {
         let nextBtn = document.createElement('button');
-        nextBtn.innerText = 'Next';
-
+        nextBtn.classList.add('btn-next');
+        nextBtn.innerText = '>';
+        
         let prevBtn = document.createElement('button');
-        prevBtn.innerHTML = 'Prev';
+        prevBtn.classList.add('btn-prev');
+        prevBtn.innerHTML = '<';
 
         nextBtn.addEventListener('click', this.next);
         prevBtn.addEventListener('click', this.prev);
@@ -102,18 +107,4 @@ class Gallery {
 const myGallery = new Gallery(
     document.getElementById('container')
 )
-
-
-// 1 - add buttons - DONE
-// 2 - add listeners to buttons - DONE
-// 3 - add interval - DONE
-
-// myGallery.show(2);
-// myGallery.next(); - DONE
-// myGallery.prev(); - DONE
-
-
-// - - - - - - in progress
-
-// styling
 
