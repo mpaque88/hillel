@@ -1,44 +1,45 @@
+'use strict'
+
 class Gallery {
     constructor(images) {
         this.images = images;
+        this.create = this.createGallery();
     }
 
     createGallery() {
         const containerDiv = document.createElement('div');
         containerDiv.classList.add('photo-gallery-container');
-        
+
         const galleryDiv = document.createElement('div');
         galleryDiv.classList.add('photo-gallery');
-        
+
         galleryDiv.appendChild(this.images);
         this.adjustClasses(this.images);
         this.createButtons(galleryDiv);
-        
+
         containerDiv.appendChild(galleryDiv);
-        document.body.append(containerDiv); 
-        
-        setInterval(this.next, 5000);
+        document.body.append(containerDiv);
+
+        setInterval(this.next, 3000);
     }
 
     adjustClasses(imagesList) {
-
         for (let key in imagesList.children) {
-
-            if (imagesList.children[key].tagName != 'LI') break;
-
-            if (imagesList.children[key] == imagesList.firstElementChild) {
-                imagesList.children[key].classList.add('active');
+            if (imagesList.children[key].tagName != 'LI') {
+                break;
             } else {
                 imagesList.children[key].classList.add('hidden');
             }
         }
+
+        imagesList.children[0].classList.toggle('hidden');
     }
 
     createButtons(container) {
         let nextBtn = document.createElement('button');
         nextBtn.classList.add('btn-next');
         nextBtn.innerText = '>';
-        
+
         let prevBtn = document.createElement('button');
         prevBtn.classList.add('btn-prev');
         prevBtn.innerHTML = '<';
@@ -51,60 +52,43 @@ class Gallery {
     }
 
     next() {
-        const activeImg = document.querySelector('.active');
-        const nextImg = activeImg.nextElementSibling;
-        const gallery = document.getElementById('container')
+        const activeImg = document.querySelector('.photo-gallery li:not(.hidden)');
+        const imgContainer = document.querySelector('.photo-gallery ul');
 
-        if (!nextImg) {
-            activeImg.classList.remove('active');
-            activeImg.classList.add('hidden');
+        activeImg.classList.toggle('hidden');
 
-            gallery.firstElementChild.classList.remove('hidden');
-            gallery.firstElementChild.classList.add('active');
+        if (!activeImg.nextElementSibling) {
+            imgContainer.firstElementChild.classList.toggle('hidden');
         } else {
-            activeImg.classList.remove('active');
-            activeImg.classList.add('hidden');
-            
-            nextImg.classList.add('active');
-            nextImg.classList.remove('hidden');
+            activeImg.nextElementSibling.classList.toggle('hidden');
         }
     }
+
 
     prev() {
-        const activeImg = document.querySelector('.active');
-        const prevImg = activeImg.previousElementSibling;
-        const gallery = document.getElementById('container')
-        
-        if (!prevImg) {
-            activeImg.classList.remove('active');
-            activeImg.classList.add('hidden');
-            
-            gallery.lastElementChild.classList.remove('hidden');
-            gallery.lastElementChild.classList.add('active');
+        const activeImg = document.querySelector('.photo-gallery li:not(.hidden)');
+        const imgContainer = document.querySelector('.photo-gallery ul');
+
+        activeImg.classList.toggle('hidden');
+
+        if (!activeImg.previousElementSibling) {
+            imgContainer.lastElementChild.classList.toggle('hidden');
         } else {
-            activeImg.classList.remove('active');
-            activeImg.classList.add('hidden');
-            
-            prevImg.classList.add('active');
-            prevImg.classList.remove('hidden');
+            activeImg.previousElementSibling.classList.toggle('hidden');
         }
     }
-    
+
     show(num) {
-        const activeImg = document.querySelector('.active');
+        const activeImg = document.querySelector('.photo-gallery li:not(.hidden)');
         const list = this.images.children;
 
         if (list[num]) {
-            activeImg.classList.remove('active');
-            activeImg.classList.add('hidden');
-
-            list[num].classList.remove('hidden');
-            list[num].classList.add('active');
-        } 
+            activeImg.classList.toggle('hidden');
+            list[num].classList.toggle('hidden');
+        }
     }
 }
 
 const myGallery = new Gallery(
     document.getElementById('container')
 )
-
