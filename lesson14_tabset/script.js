@@ -22,8 +22,8 @@ class Tabset {
 
     bindIndexes() {
         for (let i = 0; i < this.titleSet.children.length; i++) {
-            this.titleSet.children[i].setAttribute('data-tab-title-index', i + 1)
-            this.contentSet.children[i].setAttribute('data-tab-content-index', i + 1)
+            this.titleSet.children[i].setAttribute('data-tab-title-index', i + 1);
+            this.contentSet.children[i].setAttribute('data-tab-content-index', i + 1);
         }
     }
 
