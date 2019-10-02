@@ -1,0 +1,42 @@
+/* tab-tabset */
+
+.tab-tabset {
+    width: 30%;
+    min-width: 350px;
+
+    padding: 10px;
+    margin: 0 auto;
+
+    border: 2px solid black;
+}
+
+/* tab-title */
+
+.tab-tabset .tab-title div {
+    display: inline-block;
+    user-select: none;
+    cursor: pointer;
+
+    padding: 2px 15px;
+
+    background-color: lightcoral;
+    border: 1px solid black;
+}
+
+.tab-tabset .tab-title div:hover {
+    background-color: red;
+} 
+
+/* tab-content */
+
+.tab-tabset .tab-content div {
+    display: none;
+}
+
+.tab-tabset .tab-content .tab-active {
+    display: block;
+}
+
+.tab-content {
+    padding: 10px 5px;
+}
