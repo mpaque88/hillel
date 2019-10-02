@@ -13,35 +13,32 @@
 
 /* tab-title */
 
-.tab-tabset .tab-title {
-    justify-content: center;
-}
-
 .tab-tabset .tab-title div {
     display: inline-block;
     user-select: none;
     cursor: pointer;
     
-    padding: 10px 25px;
-    width: 40px;
+    width: 32%;
+    padding: 10px 0px;
     
     color: aliceblue;
-    background-color: rgb(77, 80, 236);
+    background-color: rgb(149, 151, 245);
     border-radius: 5px;
     
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 14px;
+    text-align: center;
+    
+    transition: 0.3s;
 }
 
 .tab-tabset .tab-title div:hover {
     background-color: rgb(104, 106, 243);
-    transition: 0.5s;
 } 
 
-.tab-tabset .tab-title div:active {
+.tab-tabset .tab-title .tab-active {
     background-color: rgb(44, 47, 221);
-    transition: 0.3s;
-} 
+}
 
 /* tab-content */
 
@@ -51,6 +48,8 @@
 
 .tab-tabset .tab-content .tab-active {
     display: block;
+    padding: 10px 5px;
+
     animation: 0.7s showText;
     animation-fill-mode: forwards;
 }
@@ -65,8 +64,6 @@
 }
 
 .tab-content {
-    padding: 10px 5px;
-
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 12px;
 }

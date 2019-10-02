@@ -5,8 +5,8 @@ const TABSET_CONTENT = 'tab-content';
 class Tabset {
     constructor(el) {
         this.el = el;
-        this.titleSet = this.el.children[0];
-        this.contentSet = this.el.children[1];
+        this.titleSet = this.el.children[0].children;
+        this.contentSet = this.el.children[1].children;
         this.onElementClick = this.onElementClick.bind(this);
 
         this.bindClasses();
@@ -16,14 +16,17 @@ class Tabset {
 
     bindClasses() {
         this.el.classList.add(TABSET_CONTAINER);
-        this.titleSet.classList.add(TABSET_TITLE);
-        this.contentSet.classList.add(TABSET_CONTENT);
+        this.el.children[0].classList.add(TABSET_TITLE);
+        this.el.children[1].classList.add(TABSET_CONTENT);
+
+        this.contentSet[0].classList.add('tab-active');
+        this.titleSet[0].classList.add('tab-active');
     }
 
     bindIndexes() {
-        for (let i = 0; i < this.titleSet.children.length; i++) {
-            this.titleSet.children[i].setAttribute('data-tab-title-index', i + 1);
-            this.contentSet.children[i].setAttribute('data-tab-content-index', i + 1);
+        for (let i = 0; i < this.titleSet.length; i++) {
+            this.titleSet[i].setAttribute('data-tab-title-index', i + 1);
+            this.contentSet[i].setAttribute('data-tab-content-index', i + 1);
         }
     }
 
@@ -34,20 +37,64 @@ class Tabset {
     onElementClick(e) {
         if (e.target.dataset.tabTitleIndex) {
             const tabIndex = e.target.dataset.tabTitleIndex - 1;
-            const contentDivs = this.contentSet.children;
-            const isOpened = contentDivs[tabIndex].classList.contains('tab-active');
+            const isOpened = this.contentSet[tabIndex].classList.contains('tab-active');
 
-            for (let i = 0; i < contentDivs.length; i++) {
-                contentDivs[i].classList.remove('tab-active');
-            }
+            this.hideAllTabs();
 
             if (!isOpened) {
-                contentDivs[tabIndex].classList.add('tab-active');
+                this.contentSet[tabIndex].classList.add('tab-active');
+                this.titleSet[tabIndex].classList.add('tab-active');
             }
         }
     }
+
+    hideAllTabs() {
+        for (let i = 0; i < this.contentSet.length; i++) {
+            this.contentSet[i].classList.remove('tab-active');
+            this.titleSet[i].classList.remove('tab-active');
+        }
+    }
+
+    show(x) {
+        this.hideAllTabs();
+
+        this.contentSet[x - 1].classList.add('tab-active');
+        this.titleSet[x - 1].classList.add('tab-active');
+    }
+
+    prev() {
+        const activeTabIndex = document.querySelector('.tab-active').dataset.tabTitleIndex;
+        
+        this.hideAllTabs();
+        
+        if (activeTabIndex == 1) {
+            this.contentSet[this.contentSet.length - 1].classList.add('tab-active');
+            this.titleSet[this.titleSet.length - 1].classList.add('tab-active');
+        } else {
+            this.contentSet[activeTabIndex - 2].classList.add('tab-active');
+            this.titleSet[activeTabIndex - 2].classList.add('tab-active');
+        }
+    }
+    
+    next() {
+        const activeTabIndex = document.querySelector('.tab-active').dataset.tabTitleIndex;
+        
+        this.hideAllTabs();
+        
+        if (activeTabIndex == this.contentSet.length) {
+            this.contentSet[0].classList.add('tab-active');
+            this.titleSet[0].classList.add('tab-active');
+            
+        } else {
+            this.contentSet[activeTabIndex].classList.add('tab-active');
+            this.titleSet[activeTabIndex].classList.add('tab-active');
+        }
+
+        //add showTab(index) method; replace the repeating code with it
+
+    }
 }
 
-const tabIndex = new Tabset(
+const myTabset = new Tabset(
     document.getElementById('tab-container')
 )
