@@ -1,6 +1,9 @@
 const TABSET_CONTAINER = 'tab-tabset';
+const TABSET_TAB_ACTIVE = 'tab-active';
 const TABSET_TITLE = 'tab-title';
+const TABSET_TITLE_INDEX = 'data-tab-title-index';
 const TABSET_CONTENT = 'tab-content';
+const TABSET_CONTENT_INDEX = 'data-tab-content-index';
 
 class Tabset {
     constructor(el) {
@@ -19,14 +22,14 @@ class Tabset {
         this.el.children[0].classList.add(TABSET_TITLE);
         this.el.children[1].classList.add(TABSET_CONTENT);
 
-        this.contentSet[0].classList.add('tab-active');
-        this.titleSet[0].classList.add('tab-active');
+        this.contentSet[0].classList.add(TABSET_TAB_ACTIVE);
+        this.titleSet[0].classList.add(TABSET_TAB_ACTIVE);
     }
 
     bindIndexes() {
         for (let i = 0; i < this.titleSet.length; i++) {
-            this.titleSet[i].setAttribute('data-tab-title-index', i + 1);
-            this.contentSet[i].setAttribute('data-tab-content-index', i + 1);
+            this.titleSet[i].setAttribute(TABSET_TITLE_INDEX, i + 1);
+            this.contentSet[i].setAttribute(TABSET_CONTENT_INDEX, i + 1);
         }
     }
 
@@ -37,64 +40,59 @@ class Tabset {
     onElementClick(e) {
         if (e.target.dataset.tabTitleIndex) {
             const tabIndex = e.target.dataset.tabTitleIndex - 1;
-            const isOpened = this.contentSet[tabIndex].classList.contains('tab-active');
+            const isOpened = this.contentSet[tabIndex].classList.contains(TABSET_TAB_ACTIVE);
 
             this.hideAllTabs();
 
             if (!isOpened) {
-                this.contentSet[tabIndex].classList.add('tab-active');
-                this.titleSet[tabIndex].classList.add('tab-active');
+                this.showTab(tabIndex);
             }
         }
     }
-
+    
     hideAllTabs() {
         for (let i = 0; i < this.contentSet.length; i++) {
-            this.contentSet[i].classList.remove('tab-active');
-            this.titleSet[i].classList.remove('tab-active');
+            this.contentSet[i].classList.remove(TABSET_TAB_ACTIVE);
+            this.titleSet[i].classList.remove(TABSET_TAB_ACTIVE);
         }
+    }
+    
+    showTab(index) {
+        this.contentSet[index].classList.add(TABSET_TAB_ACTIVE);
+        this.titleSet[index].classList.add(TABSET_TAB_ACTIVE);
     }
 
     show(x) {
         this.hideAllTabs();
-
-        this.contentSet[x - 1].classList.add('tab-active');
-        this.titleSet[x - 1].classList.add('tab-active');
+        this.showTab(x-1);
     }
-
+    
     prev() {
-        const activeTabIndex = document.querySelector('.tab-active').dataset.tabTitleIndex;
+        const activeTabIndex = document.querySelector(`.${TABSET_TAB_ACTIVE}`).dataset.tabTitleIndex;
         
         this.hideAllTabs();
         
         if (activeTabIndex == 1) {
-            this.contentSet[this.contentSet.length - 1].classList.add('tab-active');
-            this.titleSet[this.titleSet.length - 1].classList.add('tab-active');
+            this.showTab(this.contentSet.length - 1);
         } else {
-            this.contentSet[activeTabIndex - 2].classList.add('tab-active');
-            this.titleSet[activeTabIndex - 2].classList.add('tab-active');
+            this.showTab(activeTabIndex - 2);
         }
     }
     
     next() {
-        const activeTabIndex = document.querySelector('.tab-active').dataset.tabTitleIndex;
+        const activeTabIndex = document.querySelector(`.${TABSET_TAB_ACTIVE}`).dataset.tabTitleIndex;
         
         this.hideAllTabs();
         
         if (activeTabIndex == this.contentSet.length) {
-            this.contentSet[0].classList.add('tab-active');
-            this.titleSet[0].classList.add('tab-active');
-            
+            this.showTab(0);
         } else {
-            this.contentSet[activeTabIndex].classList.add('tab-active');
-            this.titleSet[activeTabIndex].classList.add('tab-active');
+            this.showTab(activeTabIndex);
         }
-
-        //add showTab(index) method; replace the repeating code with it
-
     }
+    
 }
 
 const myTabset = new Tabset(
     document.getElementById('tab-container')
-)
+    )
