@@ -1,9 +1,19 @@
+@keyframes showImg {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .photo-gallery-container {
     width: 400px;
     height: 250px;
 
     margin: 0 auto;
     overflow: hidden;
+
 }
 
 .photo-gallery {
@@ -19,7 +29,10 @@
 
 .photo-gallery img {
     width: 100%;
+    animation: 0.4s showImg;
+    animation-fill-mode: forwards;
 }
+
 
 .photo-gallery button {
     position: absolute;
