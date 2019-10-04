@@ -1,4 +1,11 @@
 class Tabset {
+    static TABSET_CONTAINER = 'tab-tabset';
+    static TABSET_TAB_ACTIVE = 'tab-active';
+    static TABSET_TITLE = 'tab-title';
+    static TABSET_TITLE_INDEX = 'data-tab-title-index';
+    static TABSET_CONTENT = 'tab-content';
+    static TABSET_CONTENT_INDEX = 'data-tab-content-index';
+    
     constructor(el) {
         this.el = el;
         this.titleSet = this.el.children[0].children;
@@ -8,22 +15,13 @@ class Tabset {
         this.bindClasses();
         this.bindIndexes();
         this.bindEventListeners();
+        this.showTab(0);
     }
-    
-    static TABSET_CONTAINER = 'tab-tabset';
-    static TABSET_TAB_ACTIVE = 'tab-active';
-    static TABSET_TITLE = 'tab-title';
-    static TABSET_TITLE_INDEX = 'data-tab-title-index';
-    static TABSET_CONTENT = 'tab-content';
-    static TABSET_CONTENT_INDEX = 'data-tab-content-index';
 
     bindClasses() {
         this.el.classList.add(Tabset.TABSET_CONTAINER);
         this.el.children[0].classList.add(Tabset.TABSET_TITLE);
         this.el.children[1].classList.add(Tabset.TABSET_CONTENT);
-
-        this.contentSet[0].classList.add(Tabset.TABSET_TAB_ACTIVE);
-        this.titleSet[0].classList.add(Tabset.TABSET_TAB_ACTIVE);
     }
 
     bindIndexes() {
