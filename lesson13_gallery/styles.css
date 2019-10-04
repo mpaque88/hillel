@@ -1,0 +1,46 @@
+.photo-gallery-container {
+    width: 400px;
+    height: 250px;
+
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.photo-gallery {
+    position: relative;
+}
+
+.photo-gallery ul {
+    margin: 0;
+    padding: 0;
+    
+    list-style-type: none;
+}
+
+.photo-gallery img {
+    width: 100%;
+}
+
+.photo-gallery button {
+    position: absolute;
+    top: 120px;
+
+    border: none;
+    opacity: 0.5;
+}
+
+.photo-gallery button:hover{
+    background-color: black;
+    color: white;
+    transition: 0.5s;
+}
+
+.photo-gallery .btn-next {
+    right: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+
