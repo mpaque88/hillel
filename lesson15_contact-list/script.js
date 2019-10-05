@@ -35,8 +35,6 @@ class ContactList {
         row.children[1].innerText = surname;
         row.children[2].innerText = phone;
         row.children[3].innerText = action;
-        console.log(row);
-        
         return row;
     }
     
@@ -75,11 +73,11 @@ class ContactList {
         
         this.setAttributes(nameInput, 
             { type: 'text', name: 'name', id: 'inputName', placeholder: 'Ivan' });
-            
+        
         this.setAttributes(surnameInput, 
             { type: 'text', name: 'surname', id: 'inputSurname', placeholder: 'Ivanov' });
             
-            this.setAttributes(tphoneInput, 
+        this.setAttributes(tphoneInput, 
         { type: 'text', name: 'phone', id: 'inputPhone', placeholder: '+38(066)123-45-67' });
 
         newRow.children[0].append(nameInput);
