@@ -1,10 +1,10 @@
 class ContactList {
     static TABLE_MAIN_CLASS = 'contact-list-table'; 
-
+    
     constructor(table){
         this.table = table;
         this.table.classList.add(ContactList.TABLE_MAIN_CLASS);
-
+        
         this.addContact = this.addContact.bind(this);
         this.removeContact = this.removeContact.bind(this);
 
@@ -12,31 +12,54 @@ class ContactList {
         this.createBody();
         this.createFoot();
         this.bindAddEventListeners();
-
+        
         this.inputName = document.getElementById('inputName');
         this.inputSurname = document.getElementById('inputSurname');
-        this.inputTphone = document.getElementById('inputTphone');
+        this.inputPhone = document.getElementById('inputPhone');
     }
+
+    // tools
+
+    createTableRow(cellType) {
+        const row = document.createElement('tr');
+        const nameCell = document.createElement(cellType);
+        const surnameCell = document.createElement(cellType);
+        const tphoneCell = document.createElement(cellType);
+        const actionCell = document.createElement(cellType);
+        row.append(nameCell, surnameCell, tphoneCell, actionCell);
+        return row;
+    }
+    
+    setTableRowValues(row, name, surname, phone, action) {
+        row.children[0].innerText = name;
+        row.children[1].innerText = surname;
+        row.children[2].innerText = phone;
+        row.children[3].innerText = action;
+        console.log(row);
+        
+        return row;
+    }
+    
+    setAttributes(elem, obj) {
+        for (let prop in obj) {
+            if (obj.hasOwnProperty(prop)) {
+                elem[prop] = obj[prop];
+            }
+        }
+    }
+
+    // methods
 
     createHead() {
         const thead = document.createElement('thead');
-        const row = document.createElement('tr');
-        const nameCell = document.createElement('th');
-        const surnameCell = document.createElement('th');
-        const tphoneCell = document.createElement('th');
-        const actionsCell = document.createElement('th');
-        
-        nameCell.innerText = 'Name';
-        surnameCell.innerText = 'Surname';
-        tphoneCell.innerText = 'T-phone';
-        actionsCell.innerText = '-';
-        
-        row.append(nameCell, surnameCell, tphoneCell, actionsCell);
-        thead.append(row);
-    
+        const newRow = this.createTableRow('th');
+
+        this.setTableRowValues(newRow, 'Name', 'Surname', 'Phone', 'Action');
+
+        thead.append(newRow);
         this.table.append(thead);
     }
-    
+
     createBody() {
         const tbody = document.createElement('tbody');
         
@@ -45,67 +68,45 @@ class ContactList {
     
     createFoot() {
         const tfoot = document.createElement('tfoot');
-        const row = document.createElement('tr');
-        const nameCell = document.createElement('td');
-        const surnameCell = document.createElement('td');
-        const tphoneCell = document.createElement('td');
-        const addContactCell = document.createElement('td');
-        
-        addContactCell.setAttribute('id', 'addContact');
-        addContactCell.innerText = 'Add';
-        
+        const newRow = this.createTableRow('td');
         const nameInput = document.createElement('input');
-        
-        nameInput.setAttribute('type', 'text');
-        nameInput.setAttribute('name', 'name');
-        nameInput.setAttribute('id', 'inputName');
-        nameInput.setAttribute('placeholder', 'Ivan');
-        
         const surnameInput = document.createElement('input');
-        
-        surnameInput.setAttribute('type', 'text');
-        surnameInput.setAttribute('name', 'surname');
-        surnameInput.setAttribute('id', 'inputSurname');
-        surnameInput.setAttribute('placeholder', 'Ivanov');
-        
         const tphoneInput = document.createElement('input');
         
-        tphoneInput.setAttribute('type', 'text');
-        tphoneInput.setAttribute('name', 'tphone');
-        tphoneInput.setAttribute('id', 'inputTphone');
-        tphoneInput.setAttribute('placeholder', '+38(066)123-45-67');
-        
-        nameCell.append(nameInput);
-        surnameCell.append(surnameInput);
-        tphoneCell.append(tphoneInput);
-        
-        row.append(nameCell, surnameCell, tphoneCell, addContactCell);
-        tfoot.append(row);
+        this.setAttributes(nameInput, 
+            { type: 'text', name: 'name', id: 'inputName', placeholder: 'Ivan' });
+            
+        this.setAttributes(surnameInput, 
+            { type: 'text', name: 'surname', id: 'inputSurname', placeholder: 'Ivanov' });
+            
+            this.setAttributes(tphoneInput, 
+        { type: 'text', name: 'phone', id: 'inputPhone', placeholder: '+38(066)123-45-67' });
 
+        newRow.children[0].append(nameInput);
+        newRow.children[1].append(surnameInput);
+        newRow.children[2].append(tphoneInput);
+        newRow.children[3].innerText = 'Add';
+        
+        tfoot.append(newRow);
         this.table.append(tfoot);
     }
     
     bindAddEventListeners() {
-        this.table.lastElementChild.firstElementChild.lastElementChild.addEventListener('click', this.addContact); // addCell
+        this.table.lastElementChild.firstElementChild.lastElementChild
+        .addEventListener('click', this.addContact); // addCell
 
-        this.table.children[1].addEventListener('click', this.removeContact); // tbody
+        this.table.children[1]
+        .addEventListener('click', this.removeContact); // tbody
     }
 
     addContact() {
-        const row = document.createElement('tr');
-        const nameCell = document.createElement('td');
-        const surnameCell = document.createElement('td');
-        const tphoneCell = document.createElement('td');
-        const removeCell = document.createElement('td');
+        const newRow = this.createTableRow('td');
+        this.setTableRowValues(newRow, this.inputName.value, 
+                                       this.inputSurname.value, 
+                                       this.inputPhone.value, 
+                                       'Remove');
 
-        nameCell.innerText = this.inputName.value;
-        surnameCell.innerText = this.inputSurname.value;
-        tphoneCell.innerText = this.inputTphone.value;
-        removeCell.innerText = 'x';
-
-        row.append(nameCell, surnameCell, tphoneCell, removeCell);
-
-        this.table.children[1].append(row); // tbody
+        this.table.children[1].append(newRow); // tbody
     }
 
     removeContact(e) {
@@ -113,9 +114,6 @@ class ContactList {
             e.target.parentNode.remove();
         }
     }
-    
-    // improvements:
-    // - method for setting attr
 
 }
 
