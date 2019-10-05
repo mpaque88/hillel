@@ -1,0 +1,60 @@
+.contact-list-table {
+    margin: 0 auto;
+    border: 1px solid black;
+    font-family: Verdana, Tahoma, sans-serif;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+/* thead */
+
+.contact-list-table thead {
+    background-color: lightgray;
+}
+
+.contact-list-table thead th {
+    background-color: lightgray;
+}
+
+.contact-list-table thead tr th {
+    width: 100px;
+}
+
+.contact-list-table thead tr th:nth-last-child(-n+1) { 
+    width: 5px; /*  FIX - NOT WORKING*/
+}
+
+.contact-list-table td, .contact-list-table th {
+    padding: 10px 25px;
+}
+
+/* tbody */
+
+.contact-list-table tbody tr {
+    border-bottom: 1px solid black;
+}
+
+.contact-list-table tbody tr td:nth-last-child(-n+1) { /* delete buttons */
+    user-select: none;
+    background-color: black;
+    color: white;
+    transition: 0.5s;
+}
+
+.contact-list-table tbody tr td:nth-last-child(-n+1):hover{
+    cursor: pointer;
+    background-color: gray;
+}
+
+/* tfoot */
+
+.contact-list-table tfoot tr td:nth-last-child(-n+1) { /* add button */
+    background-color: yellow;
+    color: black;
+    transition: 0.5s;
+}
+
+.contact-list-table tfoot tr td:nth-last-child(-n+1):hover { 
+    cursor: pointer;
+    background-color: orange;
+}
