@@ -1,4 +1,9 @@
+.contact-list-container {
+    text-align: center;
+}
+
 .contact-list-table {
+    width: 800px;
     margin: 0 auto;
     border: 1px solid black;
     font-family: Verdana, Tahoma, sans-serif;
@@ -8,24 +13,21 @@
 
 /* thead */
 
-.contact-list-table thead {
-    background-color: lightgray;
-}
-
 .contact-list-table thead th {
-    background-color: lightgray;
+    background-color: black;
+    color: white;
 }
 
 .contact-list-table thead tr th {
-    width: 100px;
+    width: 120px;
 }
 
 .contact-list-table thead tr th:nth-last-child(-n+1) { 
-    width: 5px; /*  FIX - NOT WORKING*/
+    width: 5px; 
 }
 
 .contact-list-table td, .contact-list-table th {
-    padding: 10px 25px;
+    padding: 10px 15px;
 }
 
 /* tbody */
@@ -36,25 +38,62 @@
 
 .contact-list-table tbody tr td:nth-last-child(-n+1) { /* delete buttons */
     user-select: none;
-    background-color: black;
+    background-color: red;
     color: white;
+    font-size: 0.7em;
     transition: 0.5s;
 }
 
 .contact-list-table tbody tr td:nth-last-child(-n+1):hover{
     cursor: pointer;
-    background-color: gray;
+    background-color: lightcoral;
 }
 
-/* tfoot */
+.contact-list-table tbody tr:nth-child(even) {
+    background-color: lightgray;
+}
 
-.contact-list-table tfoot tr td:nth-last-child(-n+1) { /* add button */
+/* form container */
+
+.contact-list-form-container {
+    width: 800px;
+    margin: 0 auto;
+
+    text-align: left;
+}
+
+/* form */
+
+.contact-list-form {
+    padding-top: 10px;
+}
+
+.contact-list-form input {
+    width: 27%;
+}
+
+.contact-list-form input, .contact-list-form button {
+    padding: 5px 10px;
+    font-size: 1em;
+}
+
+.contact-list-form button { /* add button */
+    width: 10%;
     background-color: yellow;
     color: black;
     transition: 0.5s;
 }
 
-.contact-list-table tfoot tr td:nth-last-child(-n+1):hover { 
+.contact-list-form button:hover { 
     cursor: pointer;
-    background-color: orange;
+    background-color: black;
+    color: white;
+}
+
+/* other */
+
+.red-warning {
+    color: red;
+    background-color: lightpink;
+    
 }
