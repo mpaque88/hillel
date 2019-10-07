@@ -15,11 +15,13 @@ class ContactList {
         this.encapsulateTable();
         this.createForm();
         this.encapsulateForm();
-        this.bindAddEventListeners();
         
         this.inputName = this.table.nextElementSibling.firstElementChild.children[0];
         this.inputSurname = this.table.nextElementSibling.firstElementChild.children[1];
         this.inputPhone = this.table.nextElementSibling.firstElementChild.children[2];
+        this.addBtn = this.table.nextElementSibling.firstElementChild.lastElementChild;
+
+        this.bindAddEventListeners();
     }
 
     // tools
@@ -34,11 +36,11 @@ class ContactList {
         return row;
     }
     
-    setTableRowValues(row, ...values) {
-        row.children[0].innerText = values[0]; // name
-        row.children[1].innerText = values[1]; // surname
-        row.children[2].innerText = values[2]; // phone
-        row.children[3].innerText = values[3]; // action
+    setTableRowValues(row, name, surname, phone, action) {
+        row.children[0].innerText = name;
+        row.children[1].innerText = surname;
+        row.children[2].innerText = phone;
+        row.children[3].innerText = action;
         return row;
     }
     
@@ -71,13 +73,8 @@ class ContactList {
 
     phoneValidation(value) {
         let template = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-        console.log(value);
-        
-        if (value.match(template)) {
-            return true
-        } else {
-            return false
-        }
+     
+        return (value.match(template)) ? true : false;
     }
 
     // methods
@@ -143,58 +140,56 @@ class ContactList {
     }
 
     bindAddEventListeners() {
-        this.table.nextElementSibling.firstElementChild.lastElementChild
-        .addEventListener('click', this.addContact);
-    
-        this.table.children[1]
-        .addEventListener('click', this.removeContact); // tbody
+        this.addBtn.addEventListener('click', this.addContact);
+        this.table.children[1].addEventListener('click', this.removeContact); // tbody
     }
 
     addContact(e) {
         e.preventDefault();
 
+        if (this.validateInputs()) {
+            this.createContact();
+            this.clearInputs();
+        }
+    }
+    
+    validateInputs() {
         let isNameValid = this.stringValidation(this.inputName.value);
         let isSurnameValid = this.stringValidation(this.inputSurname.value);
         let isPhoneValid = this.phoneValidation(this.inputPhone.value);
 
-        if (!isNameValid) { 
-            this.inputName.classList.add('red-warning') 
-        } else {
-            this.inputName.classList.remove('red-warning')             
-        }
-        if (!isSurnameValid) { 
-            this.inputSurname.classList.add('red-warning') 
-        } else {
-            this.inputSurname.classList.remove('red-warning')             
-        }
-        if (!isPhoneValid) { 
-            this.inputPhone.classList.add('red-warning') 
-        } else {
-            this.inputPhone.classList.remove('red-warning')             
-        }
+        (!isNameValid) ? this.inputName.classList.add('red-warning') 
+                       : this.inputName.classList.remove('red-warning');
+        (!isSurnameValid) ? this.inputSurname.classList.add('red-warning') 
+                          : this.inputSurname.classList.remove('red-warning');
+        (!isPhoneValid) ? this.inputPhone.classList.add('red-warning') 
+                       : this.inputPhone.classList.remove('red-warning');
+
+        return (isNameValid && isSurnameValid && isPhoneValid) ? true : false;
+    }
+
+    clearInputs() {
+        this.inputName.classList.remove('red-warning');
+        this.inputSurname.classList.remove('red-warning');
+        this.inputPhone.classList.remove('red-warning');
         
-        if (isNameValid && isSurnameValid && isPhoneValid) {
-            this.inputName.classList.remove('red-warning');
-            this.inputSurname.classList.remove('red-warning');
-            this.inputPhone.classList.remove('red-warning');
+        this.inputName.value = '';
+        this.inputSurname.value = '';
+        this.inputPhone.value = '';
+    }
 
-            const newRow = this.createTableRow('td');
-            this.setTableRowValues(newRow, this.inputName.value, 
-                                           this.inputSurname.value, 
-                                           this.inputPhone.value, 
-                                           'X');
-    
-            this.table.children[1].append(newRow); // tbody
+    createContact() {
+        const newRow = this.createTableRow('td');
+        this.setTableRowValues(newRow, this.inputName.value, 
+                                        this.inputSurname.value, 
+                                        this.inputPhone.value, 
+                                        'X');
 
-            this.inputName.value = '';
-            this.inputSurname.value = '';
-            this.inputPhone.value = '';
-        }
-
+        this.table.children[1].append(newRow); // tbody
     }
 
     removeContact(e) {
-        if (!e.target.nextElementSibling) {
+        if (e.target == e.target.parentElement.lastElementChild) {
             e.target.parentNode.remove();
         }
     }
