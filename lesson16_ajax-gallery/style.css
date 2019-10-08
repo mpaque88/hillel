@@ -12,6 +12,14 @@
     animation: 2.5s forwards full-opacity;
 }
 
+.gallery div img {
+    cursor: pointer;
+}
+
+.gallery div img:hover {
+    opacity: 0.8;
+}
+
 /* bg */
 
 .background {
@@ -25,6 +33,10 @@
 
     background-color: black;
     animation: 0.5s forwards half-opacity;
+}
+
+.background:hover {
+    cursor: pointer;
 }
 
 /* full img */
