@@ -1,10 +1,64 @@
-.full-image {
-    display: none;
+/* gallery */
+
+.gallery {
+    margin: 0 auto;
+    width: 80%;
+    margin-top: 25px;
 }
 
+.gallery div {
+    display: inline-block;
+    
+    animation: 2.5s forwards full-opacity;
+}
+
+/* bg */
+
 .background {
-    display: none;
+    z-index: 1;
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
 
     background-color: black;
-    opacity: 0.3;
+    animation: 0.5s forwards half-opacity;
+}
+
+/* full img */
+
+.full-image {
+    z-index: 2;
+    display: block;
+    margin: 0 auto;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 600px;
+    margin-left: -300px;
+    margin-top: -300px;
+
+    animation: 0.5s forwards full-opacity;
+}
+
+/* animation  */
+
+@keyframes full-opacity {
+    from { opacity: 0 }
+    to { opacity: 1 }
+}
+
+@keyframes half-opacity {
+    from { opacity: 0 }
+    to { opacity: 0.5 }
+}
+
+/* other  */
+
+.hidden {
+    display: none;
 }
