@@ -57,6 +57,25 @@
     animation: 0.5s forwards full-opacity;
 }
 
+/* close button */
+
+.full-image .closeBtn {
+    position: absolute;
+    top: 1%;
+    right: 1%;
+
+    background-color: black;
+    opacity: 0.3;
+    color: white;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+}
+
+.full-image .closeBtn:hover{
+    opacity: 0.6;
+}
+
 /* animation  */
 
 @keyframes full-opacity {

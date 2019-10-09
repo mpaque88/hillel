@@ -3,6 +3,7 @@ const gallery = container.children[0];
 const background = container.children[1];
 const fullImg = container.children[2];
 const imgTemp = document.getElementById('imgTemp').innerHTML.trim();
+const closeBtn = document.querySelector('.closeBtn');
 const prom = fetch('https://jsonplaceholder.typicode.com/photos?_limit=50');
 let photos = [];
 
@@ -13,6 +14,7 @@ hide(background, fullImg);
 function bindEventListeners() {
     gallery.addEventListener('click', showImg);
     background.addEventListener('click', closeImg);
+    closeBtn.addEventListener('click', closeImg);
 }
 
 function createGallery(){
@@ -62,8 +64,3 @@ function hide(...elems) {
 function closeImg() {
     hide(background, fullImg);
 }
-
-// - close btn
-// - next/prev btns
-// - code style
-// - css
