@@ -46,7 +46,7 @@ function showImg(e) {
 }
 
 function hide(...elems) {
-    elems.forEach( (elem) => elem.classList.add('hidden') );
+    elems.forEach((elem) => elem.classList.add('hidden'));
 }
 
 function closeImg() {
