@@ -24,7 +24,7 @@ function createGallery(){
 }
 
 function createImages(json, elem) {
-    return json.map((item) => {
+    return json.forEach((item) => {
         let newImg = document.createElement('div');
         newImg.innerHTML = imgTemp.replace('{{thumbURL}}', item.thumbnailUrl)
                                   .replace('{{title}}', item.title)
