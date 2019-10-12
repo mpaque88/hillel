@@ -24,6 +24,9 @@ function createGallery(){
 }
 
 function createImages(json, elem) {
+    // remake with map
+
+
     return json.forEach((item) => {
         let newImg = document.createElement('div');
         newImg.innerHTML = imgTemp.replace('{{thumbURL}}', item.thumbnailUrl)
