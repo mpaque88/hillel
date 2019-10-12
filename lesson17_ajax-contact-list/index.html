@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" async></script>
+</head>
+<body>
+    <div id="list-short">
+        <ul>
+            
+        </ul>
+    </div>
+    <script type="text/template" id="shortContactTemplate">
+        <li data-user-id="{{id}}">{{name}}</li>
+    </script>
+    <script type="text/template" id="fullContactTemplate">
+        <li data-user-id="{{id}}"
+            data-address-city="{{city}}"
+            data-address-street="{{street}}"
+            data-address-suite="{{suite}}"
+            data-address-zipcode="{{zipcode}}"
+            data-address-geo-lat="{{lat}}"
+            data-address-geo-lng="{{lng}}"
+            data-company-bs="{{bs}}"
+            data-company-catchphrase="{{catchphrase}}"
+            data-company-name="{{companyName}}"
+            data-email="{{email}}"
+            data-id="{{id}}"
+            data-phone="{{phone}}"
+            data-username="{{username}}}"
+            data-website="{{website}}}">{{name}}</li>
+    </script>
+</body>
+</html>
