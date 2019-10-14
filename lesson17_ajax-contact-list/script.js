@@ -24,6 +24,7 @@ fetch(USER_DATA_URL)
         createSidebar(data, SIDEBAR_LIST);
         bindEventListeners();
         renderUserInfo(data[0]);
+        highlightActiveItem(SIDEBAR_LIST.firstElementChild)
     });
 
 function createSidebar(json, elem) {
