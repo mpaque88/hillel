@@ -2,6 +2,9 @@ const CLASS_SIDEBAR_CONTAINER = 'sidebar';
 const CLASS_SIDEBAR_LIST = 'sidebar-list';
 const CLASS_SIDEBAR_USER = 'sidebar-user';
 
+const CLASS_VISIBLE = 'visible';
+const CLASS_LOADING = 'loading';
+
 const SIDEBAR_USER_TEMPLATE = document.getElementById('sidebarUser').innerHTML.trim();
 const FULL_CONTACT_TEMPLATE = document.getElementById('fullUserName').innerHTML.trim();
 
@@ -48,7 +51,8 @@ function bindEventListeners() {
 }
 
 function onUserClick(e) {
-    MAIN_CONTAINER.classList.add('loading');
+    MAIN_CONTAINER.classList.remove(CLASS_VISIBLE);
+    MAIN_CONTAINER.classList.add(CLASS_LOADING);
 
     if (e.target.classList.contains(CLASS_SIDEBAR_USER)) {
         fetch(USER_DATA_URL_TEMPLATE.replace('{{id}}', e.target.dataset.userId))
@@ -56,8 +60,8 @@ function onUserClick(e) {
             .then(data => {
                 renderUserInfo(data);
 
-                MAIN_CONTAINER.classList.add('visible');
-                MAIN_CONTAINER.classList.remove('loading');
+                MAIN_CONTAINER.classList.add(CLASS_VISIBLE);
+                MAIN_CONTAINER.classList.remove(CLASS_LOADING);
             })
     }
 }

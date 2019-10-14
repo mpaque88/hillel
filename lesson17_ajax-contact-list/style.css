@@ -80,10 +80,6 @@
 
 /* other */
 
-.low-opacity {
-    opacity: 0.3;
-}
-
 .visible {
     visibility: visible;
     opacity: 1;
