@@ -46,7 +46,7 @@
     animation: forwards 0.5s full-opacity;
 }
 
-.sidebar-user:hover, .sidebar-user .active {
+.sidebar-user:hover {
     background-color: darkblue;
 }
 
@@ -91,6 +91,9 @@
     transition: opacity 0.3s linear;
 }
 
+.active {
+    background-color: darkblue;
+}
 
 /* animation  */
 

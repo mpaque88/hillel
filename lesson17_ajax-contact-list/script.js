@@ -4,6 +4,7 @@ const CLASS_SIDEBAR_USER = 'sidebar-user';
 
 const CLASS_VISIBLE = 'visible';
 const CLASS_LOADING = 'loading';
+const CLASS_ACTIVE = 'active';
 
 const SIDEBAR_USER_TEMPLATE = document.getElementById('sidebarUser').innerHTML.trim();
 const FULL_CONTACT_TEMPLATE = document.getElementById('fullUserName').innerHTML.trim();
@@ -35,7 +36,8 @@ function createSidebar(json, elem) {
 
 function createUserList(json, elem) {
     let listData = json.map(item => {
-        return SIDEBAR_USER_TEMPLATE.replace('{{id}}', item.id)
+        return SIDEBAR_USER_TEMPLATE
+            .replace('{{id}}', item.id)
             .replace('{{name}}', item.name);
     })
 
@@ -51,10 +53,11 @@ function bindEventListeners() {
 }
 
 function onUserClick(e) {
-    MAIN_CONTAINER.classList.remove(CLASS_VISIBLE);
-    MAIN_CONTAINER.classList.add(CLASS_LOADING);
-
     if (e.target.classList.contains(CLASS_SIDEBAR_USER)) {
+        MAIN_CONTAINER.classList.remove(CLASS_VISIBLE);
+        MAIN_CONTAINER.classList.add(CLASS_LOADING);
+        highlightActiveItem(e.target);
+        
         fetch(USER_DATA_URL_TEMPLATE.replace('{{id}}', e.target.dataset.userId))
             .then(resp => resp.json())
             .then(data => {
@@ -82,4 +85,10 @@ function renderUserInfo(data) {
         .replace('{{username}}', data.username)
         .replace('{{website}}', data.website)
         .replace('{{name}}', data.name);
+}
+
+function highlightActiveItem(target) {
+    Array.prototype.forEach.call(SIDEBAR_LIST.children, 
+        item => item.classList.remove(CLASS_ACTIVE));
+    target.classList.add(CLASS_ACTIVE);
 }
