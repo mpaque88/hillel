@@ -1,27 +1,22 @@
-const CLASS_SIDEBAR_CONTAINER = 'sidebar';
-const CLASS_SIDEBAR_LIST = 'sidebar-list';
 const CLASS_SIDEBAR_USER = 'sidebar-user';
 const CLASS_ACTIVE = 'active';
 const CLASS_SAVE_BTN = 'save-button';
 const CLASS_REMOVE_BTN = 'remove-button';
 
-const SIDEBAR_USER_TEMPLATE = document.getElementById('sidebarUser').innerHTML.trim();
-const SAVE_BTN_TEMPLATE = document.getElementById('saveChangesBtn').innerHTML.trim();
+const TEMPLATE_SIDEBAR_USER = document.getElementById('sidebarUser').innerHTML.trim();
+const TEMPLATE_SAVE_BTN = document.getElementById('saveChangesBtn').innerHTML.trim();
 
-const SIDEBAR_CONTAINER = document.getElementById('sidebar');
-const SIDEBAR_LIST = SIDEBAR_CONTAINER.firstElementChild;
-const NEW_CONTACT_BTN = document.getElementById('newContactBtn');
-const REMOVE_CONTACT_BTN = document.querySelector('.remove-button');
-const MAIN_CONTAINER = document.getElementById('main');
+const URL_USER_DATA = 'https://jsonplaceholder.typicode.com/users';
 
-const MAIN_FORM = document.getElementById('form');
-const NAME_INPUT = document.getElementById('name');
-const COMPANY_INPUT = document.getElementById('companyname');
-const WEBSITE_INPUT = document.getElementById('website');
-const PHONE_INPUT = document.getElementById('phone');
-const EMAIL_INPUT = document.getElementById('email');
+const sidebarContainer = document.getElementById('sidebar');
+const sidebarList = document.getElementById('sidebar-list');
+const newContactBtn = document.getElementById('newContactBtn');
 
-const INPUTS = {
+const removeContactBtn = document.querySelector('.remove-button');
+const saveContactBtn = document.querySelector('.save-button');
+
+const mainForm = document.getElementById('form');
+const mainInputs = {
     name: document.getElementById('name'),
     company: document.getElementById('companyname'),
     website: document.getElementById('website'),
@@ -29,31 +24,19 @@ const INPUTS = {
     email: document.getElementById('email')
 }
 
-const USER_DATA_URL = 'https://jsonplaceholder.typicode.com/users';
-
 init();
 
 function init() {
-    fetch(USER_DATA_URL)
-        .then(resp => resp.json())
-        .then(data => {
-            createSidebar(data, SIDEBAR_LIST);
-            bindEventListeners();
-            renderForm();
-        });
+    getJson(URL_USER_DATA).then(data => {
+        createSidebar(data, sidebarList);
+        renderForm();
+        bindEventListeners();
+    });
 }
 
 function createSidebar(json, elem) {
-    createUserList(json, elem);
-    adjustClasses(elem.children, CLASS_SIDEBAR_USER);
-
-    elem.classList.add(CLASS_SIDEBAR_LIST);
-    elem.parentElement.classList.add(CLASS_SIDEBAR_CONTAINER);
-}
-
-function createUserList(json, elem) {
     let listData = json.map(item => {
-        return SIDEBAR_USER_TEMPLATE
+        return TEMPLATE_SIDEBAR_USER
             .replace('{{id}}', item.id)
             .replace('{{name}}', item.name);
     })
@@ -61,94 +44,89 @@ function createUserList(json, elem) {
     elem.innerHTML = listData.join(`\n`);
 }
 
-function adjustClasses(collection, addClass) {
-    Array.prototype.forEach.call(collection, item => item.classList.add(addClass))
+function renderForm(data) {
+    if (!data) {
+        return mainForm.reset();
+    } else {
+        mainInputs.name.value = data.name;
+        mainInputs.company.value = data.company.name;
+        mainInputs.website.value = data.website;
+        mainInputs.phone.value = data.phone;
+        mainInputs.email.value = data.email;
+    }
 }
 
 function bindEventListeners() {
-    SIDEBAR_CONTAINER.addEventListener('click', onUserClick);
-    NEW_CONTACT_BTN.addEventListener('click', onNewUserBtnClick);
-    MAIN_FORM.addEventListener('click', onSaveBtnClick);
-    MAIN_CONTAINER.addEventListener('click', onRemoveBtnClick);
+    sidebarContainer.addEventListener('click', onUserClick);
+    newContactBtn.addEventListener('click', onNewUserBtnClick);
+    saveContactBtn.addEventListener('click', onSaveBtnClick);
+    removeContactBtn.addEventListener('click', onRemoveBtnClick);
 }
-
-function renderForm(data) {
-    
-    if(!data){
-        return MAIN_FORM.reset();
-    } else {
-        INPUTS.name.value = data.name;
-        INPUTS.company.value = data.company.name;
-        INPUTS.website.value = data.website;
-        INPUTS.phone.value = data.phone;
-        INPUTS.email.value = data.email;
-    }
-}
-
 
 function onUserClick(e) {
     if (e.target.classList.contains(CLASS_SIDEBAR_USER)) {
-        REMOVE_CONTACT_BTN.classList.remove('hidden');
-        addAttributes(MAIN_FORM, 'disabled', '');
+        saveContactBtn.classList.add('hidden');
+        removeContactBtn.classList.remove('hidden');
+
+        addAttributes(mainForm, 'disabled', '');
         highlightActiveItem(e.target);
-        
-        fetch(`${USER_DATA_URL}/${e.target.dataset.userId}`)
-        .then(resp => resp.json())
-        .then(data => {
-            if(MAIN_FORM.lastElementChild.tagName == 'BUTTON') {
-                MAIN_FORM.lastElementChild.remove();
-            }
-            renderForm(data);
-        })
+
+        getJson(`${URL_USER_DATA}/${e.target.dataset.userId}`)
+            .then(data => renderForm(data));
     }
 }
 
-function onNewUserBtnClick(e){
-    REMOVE_CONTACT_BTN.classList.add('hidden');
+function onNewUserBtnClick() {
+    saveContactBtn.classList.remove('hidden');
+    removeContactBtn.classList.add('hidden');
+
     renderForm(null);
-    removeAttributes(MAIN_FORM, 'disabled');
+    removeAttributes(mainForm.children, 'disabled');
     highlightActiveItem(null);
-    appendSaveBtn(MAIN_FORM);
 }
 
 function onSaveBtnClick(e) {
     e.preventDefault();
 
-    if (e.target.classList.contains(CLASS_SAVE_BTN)) {
-        
+    if (e.target == saveContactBtn) {
         let data = {
-            name: INPUTS.name.value,
-            company: INPUTS.company.value,
-            website: INPUTS.website.value,
-            phone: INPUTS.phone.value,
-            email: INPUTS.email.value
+            name: mainInputs.name.value,
+            company: mainInputs.company.value,
+            website: mainInputs.website.value,
+            phone: mainInputs.phone.value,
+            email: mainInputs.email.value
         };
 
-        fetch(USER_DATA_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(result => alert(`Status: ${result.status}`));
-        
-        MAIN_FORM.reset();
+        postJson(URL_USER_DATA, data)
+            .then(result => alert(`Status: ${result.status}`));
+
+        mainForm.reset();
     }
 }
 
 function onRemoveBtnClick(e) {
-    
     if (e.target.classList.contains(CLASS_REMOVE_BTN)) {
-        Array.prototype.forEach.call(SIDEBAR_LIST.children,
-            item => {
-                if(item.classList.contains(CLASS_ACTIVE)) {
+        Array.prototype.forEach.call(sidebarList.children, item => {
+                if (item.classList.contains(CLASS_ACTIVE)) {
                     item.remove();
-                    MAIN_FORM.reset();
-                    return
+                    mainForm.reset();
                 }
-            })
+        })
     }
+}
+
+function postJson(url, obj) {
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(obj)
+    })
+}
+
+function getJson(url) {
+    return fetch(url).then(resp => resp.json())
 }
 
 function removeAttributes(collection, attr) {
@@ -164,13 +142,7 @@ function addAttributes(collection, attr, value) {
 }
 
 function highlightActiveItem(target) {
-    Array.prototype.forEach.call(SIDEBAR_LIST.children, 
+    Array.prototype.forEach.call(sidebarList.children,
         item => item.classList.remove(CLASS_ACTIVE));
     if (target) target.classList.add(CLASS_ACTIVE);
-}
-
-function appendSaveBtn(elem) {
-    if (!elem.lastElementChild.classList.contains(CLASS_SAVE_BTN)) {
-        elem.insertAdjacentHTML('beforeend', SAVE_BTN_TEMPLATE);
-    }
 }
