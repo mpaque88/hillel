@@ -58,7 +58,7 @@ function onUserClick(e) {
 
         MAIN_CONTAINER.classList.remove(CLASS_VISIBLE);
         MAIN_CONTAINER.classList.add(CLASS_LOADING);
-        
+
         highlightActiveItem(e.target);
         
         fetch(USER_DATA_URL_TEMPLATE.replace('{{id}}', e.target.dataset.userId))
