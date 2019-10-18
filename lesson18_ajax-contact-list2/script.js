@@ -98,7 +98,8 @@ function onSaveBtnClick(e) {
         };
 
         postJson(URL_USER_DATA, data)
-            .then(result => alert(`Status: ${result.status}`));
+            .then(data => data.json())
+            .then(data => addUser(data))
 
         mainForm.reset();
     }
@@ -106,27 +107,39 @@ function onSaveBtnClick(e) {
 
 function onRemoveBtnClick(e) {
     if (e.target.classList.contains(CLASS_REMOVE_BTN)) {
-        Array.prototype.forEach.call(sidebarList.children, item => {
-                if (item.classList.contains(CLASS_ACTIVE)) {
-                    item.remove();
-                    mainForm.reset();
-                }
-        })
+        deleteJson(`${URL_USER_DATA}/${e.target.dataset.userId}`, )
+            .then(result => alert(`Removal request - Status: ${result.status}`));
+
+        document.querySelector(`.${CLASS_ACTIVE}`).remove();
+        mainForm.reset();
     }
 }
 
 function postJson(url, obj) {
     return fetch(url, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
+        headers: { 'Content-Type': 'application/json;charset=utf-8' },
         body: JSON.stringify(obj)
     })
 }
 
 function getJson(url) {
     return fetch(url).then(resp => resp.json())
+}
+
+function deleteJson(url) {
+    return fetch(url, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json;charset=utf-8' }
+    })
+}
+
+function addUser(data) {
+    const newUser = TEMPLATE_SIDEBAR_USER
+        .replace('{{id}}', data.id)
+        .replace('{{name}}', data.name);
+
+        sidebarList.innerHTML += newUser;
 }
 
 function removeAttributes(collection, attr) {
