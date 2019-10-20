@@ -2,20 +2,25 @@ const IMG_TEMPLATE = document.getElementById('imgTemp').innerHTML.trim();
 const PAGE_TEMPLATE = document.getElementById('pageTemp').innerHTML.trim();
 const PHOTOS_URL = 'https://jsonplaceholder.typicode.com/photos?_limit=150';
 
-const ACTIVE_CLASS = 'active';
-// const LOADING_CLASS = 'loading';
+const LAST_VISITED = 'lastActivePageId';
+const PHOTOS_PER_PAGE = 'photosPerPage';
 
-const PHOTOS_PER_PAGE = 50;
-let photosQuantity = 0;
-let pagesQuantity = 0;
+const ACTIVE_CLASS = 'active';
+const HIDDEN_CLASS = 'hidden';
+const IMG_DIV_CLASS = 'gallery-img';
+
+const DEFAULT_PHOTOS_PER_PAGE = 50;
 
 const container = document.getElementById('container');
 const gallery = document.getElementById('gallery');
 const background = document.getElementById('background');
 const fullImage = document.getElementById('full-image');
 const closeBtn = document.getElementById('closeBtn');
-const paginationList = document.getElementById('pagination-list');
+const paginationContainer = document.getElementById('pagination-container');
+const amountFilter = document.getElementById('amount-filter');
 
+let photosQuantity = 0;
+let pagesQuantity = 0;
 let imagesData = [];
 
 init();
@@ -23,14 +28,7 @@ init();
 function init() {
     createGallery();
     bindEventListeners();
-    hide(background, fullImage);
-}
-
-function bindEventListeners() {
-    gallery.addEventListener('click', showImg);
-    background.addEventListener('click', closeImg);
-    closeBtn.addEventListener('click', closeImg);
-    paginationList.addEventListener('click', onPageListClick);
+    adjustClass('add', HIDDEN_CLASS, [background, fullImage]);
 }
 
 function createGallery(){
@@ -38,44 +36,51 @@ function createGallery(){
         .then((data) => {
             imagesData = data;
 
+            setDefaultValues();
             calculatePagination(data);
-            renderImages( calculatePage(data), gallery );
             createPagination();
-            paginationList.children[0].classList.add(ACTIVE_CLASS);
+            renderImages( calculatePage( data, localStorage.lastActivePageId ), gallery );
+            
+            highlightActivePage(localStorage.lastActivePageId - 1);
+            highlightActiveFilter();
         });
-}
-
-function calculatePage(data, start = 0, finish = PHOTOS_PER_PAGE) {
-    return data.slice(start, finish);
 }
 
 function renderImages(json, elem) {
     let images = json.map(item => {
         return IMG_TEMPLATE
-            .replace('{{thumbURL}}', item.thumbnailUrl)
+        .replace('{{thumbURL}}', item.thumbnailUrl)
             .replace('{{title}}', item.title)
             .replace('{{fullURL}}', item.url)
             .replace('{{index}}', item.id);
-    })
-
-    elem.innerHTML = images.join('');
+        })
+        
+        elem.innerHTML = images.join('');
 }
 
 function createPagination() {
     let pages = [];
-
+    
     for (let i = 0; i < pagesQuantity; i++) {
         pages.push(PAGE_TEMPLATE
-            .replace('{{id}}', i+1)
-            .replace('{{value}}', i+1));
-    }
+            .replace('{{id}}', i + 1)
+            .replace('{{value}}', i + 1));
+        }
 
-    paginationList.innerHTML = pages.join('');
+    paginationContainer.innerHTML = pages.join('');
+}
+
+function bindEventListeners() {
+    gallery.addEventListener('click', showImg);
+    background.addEventListener('click', closeImg);
+    closeBtn.addEventListener('click', closeImg);
+    paginationContainer.addEventListener('click', onPageListClick);
+    amountFilter.addEventListener('change', onAmountChange);
 }
 
 function showImg(e) {
-    if(e.target.classList.contains('gallery-img')) {
-        show(background, fullImage);
+    if (e.target.classList.contains(IMG_DIV_CLASS)) {
+        adjustClass('remove', HIDDEN_CLASS, [background, fullImage]);
 
         fullImage.firstElementChild.src = e.target.dataset.fullUrl;
         fullImage.firstElementChild.alt = e.target.alt;
@@ -83,71 +88,71 @@ function showImg(e) {
     }
 }
 
+function onAmountChange() {
+    localStorage.photosPerPage = amountFilter.value;
+    resetActivePage();
+    createGallery();
+}
+
 function onPageListClick(e) {
-    let id = e.target.dataset.pageId;
-
+    const id = e.target.dataset.pageId;
+    
     if (id) {
-
-        removeClass(ACTIVE_CLASS, paginationList.children)
+        adjustClass('remove', ACTIVE_CLASS, paginationContainer.children);
         e.target.classList.add(ACTIVE_CLASS);
-        
-        if (id == 1) {
-            renderImages(calculatePage(imagesData), gallery);
-        } else {
-            renderImages(
-                calculatePage(imagesData, PHOTOS_PER_PAGE * (id - 1), PHOTOS_PER_PAGE * id),
-                gallery
-            );
-        }
+
+        renderImages( calculatePage( imagesData, id ), gallery );
+        localStorage.setItem(LAST_VISITED, id);
     }
 }
 
-function hide(...elems) {
-    elems.forEach((elem) => elem.classList.add('hidden'));
+function calculatePage(data, id) {
+    return data.slice(localStorage.photosPerPage * (id - 1), localStorage.photosPerPage * id);
 }
 
-function show(...elems) {
-    elems.forEach((elem) => elem.classList.remove('hidden'));
-}
-
-//// 1 - rename removeClass ?
-//// 2 - replace hide with removeClass ?
-
-function removeClass(className, collection) {
-    Array.prototype.forEach.call(collection, elem => elem.classList.remove(className));
+function adjustClass(mode, className, collection) {
+    Array.prototype.forEach.call(collection, elem => {
+        if (mode == 'add') elem.classList.add(className);
+        if (mode == 'remove') elem.classList.remove(className);
+    });
 }
 
 function closeImg() {
-    hide(background, fullImage);
+    adjustClass('add', HIDDEN_CLASS, [background, fullImage]);
 }
 
 function requestJson(url, method = 'GET', body = null) {
-    // gallery.classList.add(LOADING_CLASS);
     return fetch(url, { method, body })
             .then(resp => resp.json())
-            .catch(err => console.warn(err))
-            // .finally(() => gallery.classList.remove(LOADING_CLASS));
+            .catch(err => console.warn(err));
 }
 
 function calculatePagination(contentArray) {
     photosQuantity = contentArray.length;
-    pagesQuantity = Math.ceil(photosQuantity/PHOTOS_PER_PAGE);
+    pagesQuantity = Math.ceil(photosQuantity/localStorage.photosPerPage);
 }
 
+function saveActivePage(id) {
+    localStorage.setItem(LAST_VISITED, id);
+}
 
+function highlightActivePage(id) {
+    paginationContainer.children[id].classList.add(ACTIVE_CLASS);
+}
 
-// 1)  ~DONE~ 
-// ~DONE~ paging - fetch 500 items; make paging 
-// ~DONE~ (ITEMS_PER_PAGE, page quantity = (images.length/itemsperpage))
+function highlightActiveFilter() {
+    amountFilter.value = localStorage.photosPerPage;
+}
 
-// 2) 
-// store last visited page 
+function resetItemsPerPage() {
+    localStorage.setItem(PHOTOS_PER_PAGE, DEFAULT_PHOTOS_PER_PAGE);
+}
 
-// (dataset.pageId, localStorage.lastVisited == pageId)
-//             renderImages(
-//     calculatePage(imagesData, PHOTOS_PER_PAGE * (pageId - 1), PHOTOS_PER_PAGE * pageId),
-//     gallery
-// );
+function resetActivePage() {
+    localStorage.setItem(LAST_VISITED, '1');
+}
 
-// ! ! ! ! !
-// calculatePage(imagesData, PHOTOS_PER_PAGE * (pageId - 1), PHOTOS_PER_PAGE * pageId)-> create method "getPageData"
+function setDefaultValues() {
+    if (!localStorage.photosPerPage) resetItemsPerPage();
+    if (!localStorage.lastActivePageId) resetActivePage();
+}
