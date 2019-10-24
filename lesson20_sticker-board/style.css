@@ -102,11 +102,11 @@ h1 {
 }
 
 .sticker-item .remove-button:hover {
-    background-color: tomato;
+    background-color: greenyellow;
 }
 
 .sticker-item .edit-button:hover {
-    background-color: greenyellow;
+    background-color: yellow;
 }
 
 .sticker-item textarea {
