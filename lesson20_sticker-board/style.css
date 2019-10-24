@@ -1,0 +1,136 @@
+* { font-size: 15px; }
+
+body {
+    background-color: black;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+.header {
+    margin: 2em;
+}
+
+.header button {
+    margin: 0;
+    padding: 0.5em 2em;
+    border: none;
+    font-size: 1em;
+}
+
+.header button:hover {
+    cursor: pointer;
+    background-color: lightgoldenrodyellow;
+}
+
+#sticker-container {
+    margin: 2em;
+}
+
+.sticker-item {
+    display: inline-block;
+    width: 250px;
+    max-height: 300px;
+
+    padding: 1.5em 0 1em 0;
+    margin-bottom: 0.5em;
+    margin-right: 1em;
+
+    text-align: center;
+
+    clip-path: polygon(0 0, 100% 0, 100% 30%, 100% 85%, 85% 100%, 0 100%, 0% 70%, 0% 30%);
+    background: rgb(255, 246, 152);
+    border-top: 5px dashed black;
+    border-radius: 0.1px;
+
+    /* background: linear-gradient(135deg, rgba(255,234,0,1) 0%, rgba(254,182,69,1) 100%); */
+
+    color: black;
+}
+
+.sticker-item input {
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;
+
+    width: 80%;
+
+    text-align: left;
+    font-size: 1.2em;
+    font-weight: bold;
+
+    background-color: transparent;
+}
+
+.sticker-item input:disabled {
+    color: black;
+}
+
+.sticker-item .sticker-buttons {
+    float: left;
+    margin: 0;
+    padding: 0.5em 0;
+
+    outline: none;
+    border: none;
+    user-select: none;
+    border-radius: 20px;
+    
+    font-size: 0.8em;
+    line-height: 0.5;
+
+
+    width: 50px;
+    opacity: 0.5;
+
+    background-color: transparent;
+    border: 1px dashed black;
+}
+.sticker-item .sticker-buttons:nth-child(2) {
+    margin-left: 2em;
+}
+
+.sticker-item .sticker-buttons:nth-child(3) {
+    margin-left: 0.5em;
+}
+
+.sticker-item .sticker-buttons:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.sticker-item .remove-button:hover {
+    background-color: tomato;
+}
+
+.sticker-item .edit-button:hover {
+    background-color: greenyellow;
+}
+
+.sticker-item textarea {
+    margin: 0.5em 0;
+    padding: 0;
+    border: 1px solid transparent;
+
+    font-size: 0.8em;
+
+    width: 80%;
+    height: 100%;
+
+    resize: none;
+    background-color: transparent;
+    outline: transparent;
+}
+
+.hidden {
+    display: none;
+}
+
+.edit-mode input, .edit-mode textarea {
+    border: 1px dashed gray;
+    background-color: lightyellow;
+}
+
