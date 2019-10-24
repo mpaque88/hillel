@@ -57,7 +57,7 @@ function addNewStickerItem() {
         list.push(sticker);
         localStorage.myStickers = JSON.stringify(list);
     } else {
-        let list = JSON.parse(localStorage.myStickers)
+        let list = getListFromJson(LOCAL_DATA_KEY);
         list.push(sticker);
         localStorage.myStickers = JSON.stringify(list);
     }
@@ -90,7 +90,7 @@ function getListItemElement(id) {
 }
 
 function removeStickerData(id) {
-    let list = JSON.parse(localStorage.getItem(LOCAL_DATA_KEY));
+    let list = getListFromJson(LOCAL_DATA_KEY);
     const sticker = getListItemElement(id);
 
     list = list.filter(item => item.id != sticker.id);
@@ -141,7 +141,7 @@ function editModeOn(title, body, container) {
 }
 
 function saveSticker(item) {
-    let list = JSON.parse(localStorage.getItem(LOCAL_DATA_KEY));
+    let list = getListFromJson(LOCAL_DATA_KEY);
 
     list[list.findIndex(el => el.id == item.id)] = item;
 
