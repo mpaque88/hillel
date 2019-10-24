@@ -2,7 +2,7 @@
 
 .gallery {
     margin: 0 auto;
-    width: 80%;
+    width: 1240px;
     height: 100%;
     margin-top: 25px;
 }
@@ -15,6 +15,9 @@
 
 .gallery div img {
     cursor: pointer;
+    margin-right: 4px;
+    height: 120px;
+    width: 120px;
 }
 
 .gallery div img:hover {
@@ -55,7 +58,9 @@
     margin-left: -300px;
     margin-top: -300px;
 
-    animation: 0.5s forwards full-opacity;
+    /* animation: 0.5s forwards full-opacity; */
+    /* opacity: 1; */
+    /* transition: opacity 2s; */
 }
 
 /* close button */
@@ -65,7 +70,7 @@
     top: 1%;
     right: 1%;
 
-    background-color: black;
+    background-color: transparent;
     opacity: 0.3;
     color: white;
     height: 25px;

@@ -1,10 +1,11 @@
 const container = document.getElementById('container');
-const gallery = container.children[0];
-const background = container.children[1];
-const fullImg = container.children[2];
-const imgTemp = document.getElementById('imgTemp').innerHTML.trim();
-const closeBtn = document.querySelector('.closeBtn');
-const prom = fetch('https://jsonplaceholder.typicode.com/photos?_limit=50');
+const gallery = document.getElementById('gallery');
+const background = document.getElementById('background');
+const fullImg = document.getElementById('full-image');
+
+const IMG_TEMPLATE = document.getElementById('imgTemp').innerHTML.trim();
+const closeBtn = document.getElementById('closeBtn');
+const PHOTOS_URL = 'https://jsonplaceholder.typicode.com/photos?_limit=50';
 
 createGallery();
 bindEventListeners();
@@ -17,24 +18,23 @@ function bindEventListeners() {
 }
 
 function createGallery(){
-    prom.then((resp) => { resp.json().then((data) => {
-            createImages(data, container);
+    requestJson(PHOTOS_URL)
+        .then((data) => {
+            appendImages(data, gallery);
+
         });
-    }); 
 }
 
-function createImages(json, elem) {
-    // remake with map
-
-
-    return json.forEach((item) => {
-        let newImg = document.createElement('div');
-        newImg.innerHTML = imgTemp.replace('{{thumbURL}}', item.thumbnailUrl)
-                                  .replace('{{title}}', item.title)
-                                  .replace('{{fullURL}}', item.url)
-                                  .replace('{{index}}', item.id);
-        elem.firstElementChild.append(newImg);
+function appendImages(json, elem) {
+    let images = json.map(item => {
+        return IMG_TEMPLATE
+            .replace('{{thumbURL}}', item.thumbnailUrl)
+            .replace('{{title}}', item.title)
+            .replace('{{fullURL}}', item.url)
+            .replace('{{index}}', item.id);
     })
+
+    elem.innerHTML = images.join('');
 }
 
 function showImg(e) {
@@ -54,4 +54,10 @@ function hide(...elems) {
 
 function closeImg() {
     hide(background, fullImg);
+}
+
+function requestJson(url, method = 'GET', body = null) {
+    return fetch(url, { method, body })
+            .then(resp => resp.json())
+            .catch(err => console.warn(err))
 }
