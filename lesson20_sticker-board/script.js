@@ -48,7 +48,7 @@ function onAddBtnClick() {
 function addNewStickerItem() {
     const sticker = {
         id: Date.now(),
-        title: 'That is the task name',
+        title: 'Do something',
         body: 'Some details here'
     }
 
