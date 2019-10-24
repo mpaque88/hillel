@@ -12,7 +12,7 @@ const stickerTemplate = document.getElementById('sticker-template').innerHTML.tr
 let stickerListHtml = [];
 
 addBtn.addEventListener('click', onAddBtnClick);
-stickerContainer.addEventListener('click', onButtonClick);
+stickerContainer.addEventListener('click', onStickerClick);
 
 init();
 
@@ -41,11 +41,11 @@ function renderList(json) {
 }
 
 function onAddBtnClick() {
-    saveNewStickerItem();
-    renderList(localStorage.myStickers); //dumb way - remake correctly then
+    addNewStickerItem();
+    renderList(localStorage.myStickers);
 }
 
-function saveNewStickerItem() {
+function addNewStickerItem() {
     const sticker = {
         id: Date.now(),
         title: 'That is the task name',
@@ -63,8 +63,7 @@ function saveNewStickerItem() {
     }
 }
 
-function onButtonClick(e) {
-    e.preventDefault();
+function onStickerClick(e) {
     const id = e.target.parentElement.dataset.stickerId;
 
     switch (true) {
@@ -110,8 +109,8 @@ function findElementNode(id) {
 
 function toggleEditMode(id) {
     const stickerNode = findElementNode(id);
-    const input = stickerNode.children[0][0];
-    const textarea = stickerNode.children[0][1];
+    const input = stickerNode.children[0][0];           
+    const textarea = stickerNode.children[0][1];       
     
     if (stickerNode.classList.contains(EDIT_MODE_CLASS)) {
         const stickerItem = getListItemElement(id);
