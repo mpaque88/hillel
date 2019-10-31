@@ -1,0 +1,127 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+    font-size: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.board-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(219, 219, 219);
+}
+
+.board-header {
+    box-sizing: border-box;
+    padding: 1em 0;
+
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+.board-header button {
+    background: rgb(55, 55, 195);
+    color: white;
+    border: none;
+    width: 180px;
+    padding: 1em 0;
+    cursor: pointer;
+}
+
+.board-header button:hover{
+    background-color: rgb(22, 22, 138);
+}
+
+.board-header button:active{
+    box-shadow: inset 2px 2px white;
+}
+
+.board-header #clear-sticker-btn:hover {
+    background-color: rgb(230, 19, 142);
+}
+
+.board-body {
+    height: 100vh;
+}
+
+/* modal */
+
+
+.ui-dialog form textarea {
+    resize: none;
+}
+
+.ui-dialog form button, .ui-dialog form input, .ui-dialog form textarea {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* board */
+
+.sticker {
+    box-sizing: border-box;
+    width: 150px;
+    max-height: 200px;
+
+    user-select: none;
+    display: block;
+
+}
+
+.sticker .sticker-header, .sticker .sticker-body {
+    width: 100%;
+}
+
+.sticker .sticker-header {
+    padding: 1rem;
+
+    cursor: grab;
+    color: white;
+    background-color: rgb(55, 55, 195);
+    box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+
+}
+
+.sticker .sticker-header:active {
+    cursor: grabbing;
+    background-color: rgb(22, 22, 138);
+}
+
+.sticker .delete-btn {
+    padding: 0.2em;
+    height: 1rem;
+    width: 1rem;
+    text-align: center;
+    background-color: rgb(22, 22, 138);
+}
+
+.sticker .delete-btn:hover{
+    cursor: pointer;
+    background-color: rgb(230, 19, 142);
+}
+
+.sticker .sticker-body {
+    padding: 1rem;
+    min-height: 100px;
+
+    font-size: 0.8em;
+    background-color: rgb(240, 240, 255);
+}
+
+.sticker .sticker-body p {
+    margin: 0;
+    padding: 0;
+
+    word-break: break-all;
+}
+
+.sticker .delete-btn {
+    display: block;
+    position: inherit;
+    float: right;
+}

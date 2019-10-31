@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My board</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./jquery-ui-1.12.1/jquery-ui.structure.css">
+    <link rel="stylesheet" href="./jquery-ui-1.12.1/jquery-ui.theme.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" defer></script>
+    <script src="./jquery-ui-1.12.1/jquery-ui.min.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div id="container" class="board-container">
+        <div id="header" class="board-header">
+            <button id="add-sticker-btn">New sticker</button>
+            <button id="clear-sticker-btn">Clear all</button>
+            <div id="dialog" title="New sticker">
+                <form action="" id="add-sticker-form">
+                    <input type="text" name="title"  placeholder="Title">
+                    <textarea name="detail" cols="20" rows="5" placeholder="Description">
+                    </textarea>
+                    <button id="submit-sticker-btn" type="submit">Save</button>
+                </form>
+            </div>
+        </div>
+        <div id="body" class="board-body">
+            Body
+        </div>
+    </div>
+    <script type="text/template" id="sticker-template">
+        <div class="sticker" data-sticker-index='{{id}}'>
+            <div class="sticker-header">
+                <span>{{title}}</span>
+                <span class="delete-btn">X</span>
+            </div>
+            <div class="sticker-body">
+                <p>{{detail}}</p>
+            </div>
+        </div>
+    </script>
+</body>
+</html>
