@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./../jquery-ui-themes-1.12.1/themes/base/jquery-ui.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" defer></script>
+    <script src="./../jquery-ui-1.12.1/jquery-ui.min.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="ui-widget">
+        Input:
+        <input placeholder="Search for a GitHub user" id="users">
+    </div>
+    <div class="ui-widget" style="margin-top:2em; font-family:Arial">
+        Result:
+        <div id="log" style="height: 200px; width: 500px; overflow: auto;" class="ui-widget-content">
+            <div class="field">Username:<input type="text" disabled id="login"> </div>
+            <div class="field">Registration date:<input type="text" disabled id="date"></div>
+            <div class="field">Direct link:<a id="link"  href=""></a></div>
+        </div>
+    </div>
+</body>
+</html>

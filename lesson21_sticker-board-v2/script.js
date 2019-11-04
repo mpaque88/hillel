@@ -85,6 +85,7 @@ $(function() {
 
     function clearForm() {
         $form.children().val('');
+        // $form[0].reset();
     }
 
     function saveState() {

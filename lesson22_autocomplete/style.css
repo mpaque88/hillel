@@ -1,0 +1,22 @@
+body {
+    background-color: gray;
+    color: white;
+}
+
+ul.ui-autocomplete.ui-menu {
+    z-index: 1000;
+  }
+
+.field {
+    margin: 1em 0;
+    box-sizing: border-box;
+}
+
+.field input, .field a {
+    float: right;
+    width: 200px;
+    background: lightblue;
+    color: white;
+    border: none;
+    text-align: center;
+}
