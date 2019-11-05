@@ -1,4 +1,4 @@
-const calculator = require('./calc/calc.js');
+const calculator = require('./calc');
 
 console.log(calculator.add(2,3)) // 5
 console.log(calculator.sub(2,3)) // -1
