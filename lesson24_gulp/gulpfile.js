@@ -31,9 +31,9 @@ function build(cb) {
 
 function dev() {
     watch('src/**/*.*', {}, function(cb) {
-        css();
-        js();
-        html();
+        compileCss();
+        concatJs();
+        injectHtml();
 
         cb();
     })
