@@ -10,6 +10,7 @@ $(function() {
             this.el = el;
             this.form = $('#todo-form');
             this.addBtn = $('#todo-add-btn');
+            
             this.data = LocalData.prototype.getLocalData() || [];
 
             this.renderItems();
@@ -80,6 +81,7 @@ $(function() {
 
             const input = this.form.children('input').val();
             this.addTodoItem(input);
+            this.form[0].reset();
         }
 
         addTodoItem(title) {
