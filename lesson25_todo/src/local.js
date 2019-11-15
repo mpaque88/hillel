@@ -1,9 +1,9 @@
 export class LocalData {
-    getLocalData() {
+    static getLocalData() {
         return JSON.parse(localStorage.getItem('todoItems'))
     }
 
-    saveState(data) {
+    static saveState(data) {
         localStorage.setItem('todoItems', JSON.stringify(data));
     }
 }

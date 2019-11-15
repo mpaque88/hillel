@@ -4,14 +4,14 @@ import {LocalData} from './local.js';
 
 $(function() {
     class Todo {
-        static $TODO_TEMP = $('#todo-item-temp').html();
+        static $TODO_TMPL = $('#todo-item-temp').html();
     
         constructor(el) {
             this.el = el;
             this.form = $('#todo-form');
             this.addBtn = $('#todo-add-btn');
             
-            this.data = LocalData.prototype.getLocalData() || [];
+            this.data = LocalData.getLocalData() || [];
 
             this.renderItems();
             this.bindEventListeners();
@@ -31,7 +31,7 @@ $(function() {
         }
     
         getItemHtml({title, id, isDone}) {
-            return Todo.$TODO_TEMP
+            return Todo.$TODO_TMPL
                 .replace('{{title}}', title)
                 .replace('{{id}}', id)
                 .replace('{{isDone}}', isDone ? 'todo-done' : '')
@@ -47,18 +47,18 @@ $(function() {
         }
 
         onItemClick(e) {
-            const $id = $(e.target).data('itemId');
+            const id = $(e.target).data('itemId');
 
             if ($(e.target).hasClass('delete-btn')) {
                 this.removeTodoItem( $(e.target).parent().data('itemId') );
-                LocalData.prototype.saveState(this.data);
+                LocalData.saveState(this.data);
             } 
             
             if ($(e.target).hasClass('todo-item')) {
-                const item = this.findItemData($id);
+                const item = this.findItemData(id);
                 item.isDone = item.isDone ? false : true; 
 
-                LocalData.prototype.saveState(this.data);
+                LocalData.saveState(this.data);
                 this.renderItems();
             }
         }
@@ -88,14 +88,13 @@ $(function() {
             const item = this.createTodoItem(title);
             this.data.push(item);
 
-            LocalData.prototype.saveState(this.data);
+            LocalData.saveState(this.data);
             this.renderItems();
         }
 
         createTodoItem(title) {
             return { title, id: Date.now(), isDone: false }
         }
-
     }
 
     const myTodo = new Todo($('#todo-list')[0]);
