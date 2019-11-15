@@ -4,7 +4,7 @@ import {LocalData} from './local.js';
 
 $(function() {
     class Todo {
-        static $TODO_TMPL = $('#todo-item-temp').html();
+        static $TODO_TMPL = $('#todo-item-template').html();
     
         constructor(el) {
             this.el = el;
