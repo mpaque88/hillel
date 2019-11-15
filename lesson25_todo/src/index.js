@@ -1,3 +1,7 @@
+import $ from 'jquery';
+import './style.scss';
+import {LocalData} from './local.js';
+
 $(function() {
     class Todo {
         static $TODO_TEMP = $('#todo-item-temp').html();
@@ -6,16 +10,10 @@ $(function() {
             this.el = el;
             this.form = $('#todo-form');
             this.addBtn = $('#todo-add-btn');
-            
-            this.onItemClick = this.onItemClick.bind(this);
-            this.onAddBtnClick = this.onAddBtnClick.bind(this);
-            this.data = [];
-    
-            this.getLocalData();
-            this.renderItems();
+            this.data = LocalData.prototype.getLocalData() || [];
 
-            $(this.el).on('click', this.onItemClick);
-            $(this.addBtn).on('click', this.onAddBtnClick);
+            this.renderItems();
+            this.bindEventListeners();
         }
     
         renderItems() {
@@ -42,18 +40,24 @@ $(function() {
             this.el.innerHTML = items.join('');
         }
 
+        bindEventListeners() {
+            $(this.el).on('click', this.onItemClick.bind(this));
+            $(this.addBtn).on('click', this.onAddBtnClick.bind(this));
+        }
+
         onItemClick(e) {
             const $id = $(e.target).data('itemId');
-            console.log($id)
 
             if ($(e.target).hasClass('delete-btn')) {
                 this.removeTodoItem( $(e.target).parent().data('itemId') );
-                this.saveState();
-            } else {
+                LocalData.prototype.saveState(this.data);
+            } 
+            
+            if ($(e.target).hasClass('todo-item')) {
                 const item = this.findItemData($id);
                 item.isDone = item.isDone ? false : true; 
-    
-                this.saveState();
+
+                LocalData.prototype.saveState(this.data);
                 this.renderItems();
             }
         }
@@ -67,6 +71,10 @@ $(function() {
             return $(`[data-item-id="${id}"]`)
         }
 
+        findItemData(id) {
+            return this.data.find(item => item.id === id)
+        }
+
         onAddBtnClick(e) {
             e.preventDefault();
 
@@ -76,10 +84,9 @@ $(function() {
 
         addTodoItem(title) {
             const item = this.createTodoItem(title);
-            
             this.data.push(item);
 
-            this.saveState();
+            LocalData.prototype.saveState(this.data);
             this.renderItems();
         }
 
@@ -87,19 +94,7 @@ $(function() {
             return { title, id: Date.now(), isDone: false }
         }
 
-        findItemData(id) {
-            return this.data.find(item => item.id === id)
-        }
-
-        getLocalData() {
-            if(localStorage.getItem('todoItems'))
-            this.data = JSON.parse(localStorage.getItem('todoItems'))
-        }
-
-        saveState() {
-            localStorage.setItem('todoItems', JSON.stringify(this.data));
-        }
     }
-    
+
     const myTodo = new Todo($('#todo-list')[0]);
 })
