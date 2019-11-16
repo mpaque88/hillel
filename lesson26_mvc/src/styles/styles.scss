@@ -1,0 +1,41 @@
+$solid-green: rgb(0, 128, 0);
+$green: rgb(144, 238, 144);
+$light-green: rgb(183, 253, 183);
+$yellow: rgb(231, 231, 48);
+$light-yellow: rgb(251, 250, 187);
+
+ul {
+    list-style-type: none;
+    margin: 5%;
+    width: 50%;
+
+    .todo-item {
+        padding: 5px 10px;
+        user-select: none;
+        cursor: pointer;
+        background-color: $light-yellow;
+        transition: background-color 0.1s ease-in-out;
+    }
+
+    .todo-item:hover {
+        font-style: italic;
+    }
+    
+    .todo-item:active {
+        background-color: $yellow;
+    }
+
+    .task-done {
+        background-color: $green;
+        color: $solid-green;
+    }
+    
+    .task-done:hover {
+        background-color: $light-green;
+        font-style: normal;
+    }
+}
+
+
+
+

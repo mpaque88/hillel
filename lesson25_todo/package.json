@@ -4,7 +4,9 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --open",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +24,7 @@
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   }
 }

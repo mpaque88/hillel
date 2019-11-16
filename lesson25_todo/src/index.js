@@ -1,6 +1,8 @@
 import $ from 'jquery';
+
 import './style.scss';
-import {LocalData} from './local.js';
+
+import LocalData from './local.js';
 
 $(function() {
     class Todo {

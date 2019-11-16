@@ -1,4 +1,4 @@
-export class LocalData {
+export default class LocalData {
     static getLocalData() {
         return JSON.parse(localStorage.getItem('todoItems'))
     }
