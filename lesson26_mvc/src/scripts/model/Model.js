@@ -17,7 +17,6 @@ export default class Model {
     }
 
     update() {
-        console.log(this)
         return fetch(config.contactsUrl+`/${this.id}`, {
             method: 'PUT',
             data: JSON.stringify(this)
