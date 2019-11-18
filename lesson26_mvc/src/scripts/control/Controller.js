@@ -18,7 +18,7 @@ export default class Controller {
     onListItemClick(id) {
         const model = this.collection.list.find(item => item.id == id);
 
-        model.updateData({completed: model.completed ? false : true}) 
+        model.updateData({completed: !model.completed}) 
             .then(() => this.listView.renderList(this.collection.list))
     }
 }
