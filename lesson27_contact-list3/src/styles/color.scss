@@ -1,0 +1,50 @@
+:root {
+    --solid-blue: #00008b;
+    --light-blue: #6a5acd;
+    --solid-red: #e41919;
+    --light-red: #e78080;
+    --solid-yellow: #e3e700;
+    --light-yellow: #f6f273;
+    --solid-gray: #2c2c2c;
+    --light-gray: #c2c2c2;
+    --white: #fffdf8;
+}
+
+@mixin bg-and-text ($bg-color, $text-color) {
+    background-color: $bg-color;
+    color: $text-color;
+}
+
+.container {
+    border: 1px solid var(--light-gray);
+    box-shadow: 10px 10px 20px -5px var(--light-gray);
+
+    .sidebar {
+        .sidebar-user {
+            @include bg-and-text (var(--light-blue), var(--white));
+            &:hover {background-color: var(--solid-blue)}
+            &:active {color: var(--solid-red)}
+        }
+        .new-button {
+            @include bg-and-text (var(--solid-blue), var(--white));
+            &:hover {@include bg-and-text (var(--light-blue), var(--white))}
+            &:active {@include bg-and-text (var(--solid-gray), var(--white))}
+        }
+        .active {
+            @include bg-and-text (var(--solid-blue), var(--white));
+        }
+    }
+
+    .form-container {
+        .remove-button { 
+            @include bg-and-text (var(--light-red), var(--white));
+            &:hover {@include bg-and-text (var(--solid-red), var(--white))}
+            &:active {@include bg-and-text (var(--solid-gray), var(--white))}
+        }
+        .save-button {
+            @include bg-and-text (var(--light-yellow), var(--solid-gray));
+            &:hover{@include bg-and-text (var(--solid-yellow), var(--solid-gray))}
+            &:active{@include bg-and-text (var(--solid-gray), var(--white))}
+        }
+    }
+}

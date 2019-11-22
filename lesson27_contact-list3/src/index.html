@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container" class="container">
+        <div id="sidebar" class="sidebar">
+            <button id="newContactBtn" class="new-button">New contact</button>
+            <ul id="sidebar-list" class="sidebar-list"></ul>
+        </div>
+        <div id="main" class="form-container">
+            <button class="remove-button">X</button>
+            <form action="" id="form" class="main-form">
+                <label for="name">Name:</label>
+                <input type="text" name="name"  class="form-input" id="name" value="" disabled>
+                <label for="name">Surname:</label>
+                <input type="text" name="surname"  class="form-input" id="surname" value="" disabled>
+                <label for="name">Email:</label>
+                <input type="text" name="email" class="form-input" id="email" value="" disabled>
+                <input type="hidden" name="id" id="id" value="">
+                <button type="submit" class="hidden" id="save-button">Save</button>
+            </form>
+            <button class="save-button hidden">Save changes</button>
+        </div>
+    </div>
+</body>
+</html>
