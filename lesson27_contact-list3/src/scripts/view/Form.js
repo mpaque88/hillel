@@ -1,5 +1,4 @@
 import $ from 'jquery';
-// import 'jquery-validation';
 
 export default class Form{
     constructor(config){
@@ -14,14 +13,6 @@ export default class Form{
 
         this.$form.on('submit', this.onSaveBtnClick.bind(this));
         this.$rmBtn.on('click', this.onRemoveBtnClick.bind(this));
-        
-        // this.$form.validate({
-        //     rules: {
-        //         name: {required: true},
-        //         surname: {required: true},
-        //         email: {required: true, email: true}
-        //     }
-        // });
     }
 
     renderContact({name, surname, email, id}) {
