@@ -2,7 +2,7 @@ export default class Chat {
     constructor(config) {
         this.config = config;
 
-        this.socket = new WebSocket('wss://fep-app.herokuapp.com/');
+        this.socket = new WebSocket(this.config.url);
 
         this.socket.onopen = () => {
             this.send(this.config.name, 'connected', 'Connected') 

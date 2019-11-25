@@ -7,6 +7,7 @@ import '../styles/style.scss';
 
 const talk = new Chat({
     onMessage: data => addLog(data),
+    url: 'wss://fep-app.herokuapp.com/',
     name: 'Admin'
 })
 
