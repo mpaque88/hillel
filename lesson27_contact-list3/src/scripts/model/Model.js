@@ -5,6 +5,10 @@ export default class Model {
         Object.assign(this, data);
     }
 
+    setData(data) {
+        Object.assign(this, data)
+    }
+
     postReq() {
         return fetch(config.contactsUrl, {
             method: 'POST',
@@ -12,6 +16,7 @@ export default class Model {
             body: JSON.stringify(this)
         })
         .then(resp => resp.json())
+        .then(data => this.setData(data))
         .catch(err => console.warn(err))
     }
 

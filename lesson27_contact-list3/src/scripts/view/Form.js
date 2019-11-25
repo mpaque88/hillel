@@ -19,7 +19,7 @@ export default class Form{
         this.$nameInput.val(name);
         this.$surnameInput.val(surname);
         this.$emailInput.val(email);
-        this.$idInput.val(id);
+        id && this.$idInput.val(id);
     } 
 
     onSaveBtnClick(e){
@@ -29,7 +29,6 @@ export default class Form{
         const obj = {};
 
         data.forEach(item => obj[item.name] = item.value);
-        obj.id = Date.now();
 
         this.toggleInputs();
         this.toggleButtons();
