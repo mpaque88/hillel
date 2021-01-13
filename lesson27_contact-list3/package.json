@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "jquery": "^3.4.1",
-    "jquery-validation": "^1.19.1",
+    "jquery-validation": "^1.19.3",
     "paginationjs": "^2.1.5"
   }
 }
